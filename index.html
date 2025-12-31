@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolyo | Kaan Ersen</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
         :root {
             --bg-deep: #020617;
@@ -21,7 +23,7 @@
             overflow: hidden;
         }
 
-        /* ARKA PLAN - Senin yüklediğin manuel...jpg resmi */
+        /* ARKA PLAN */
         .bg-fixed {
             position: fixed;
             top: 0; left: 0;
@@ -54,7 +56,7 @@
             100% { opacity: 0; visibility: hidden; }
         }
 
-        /* MENÜ BUTONU (HAMBURGER) */
+        /* MENÜ BUTONU */
         .toggle-btn {
             position: fixed;
             top: 20px; left: 20px;
@@ -76,7 +78,7 @@
             box-shadow: 0 0 15px var(--accent-blue);
         }
 
-        /* SIDEBAR - GİZLİ BAŞLIYOR */
+        /* SIDEBAR */
         .sidebar {
             width: 260px;
             height: 100vh;
@@ -95,7 +97,6 @@
 
         .sidebar.active { left: 0; }
 
-        /* GLITCH EFEKTİ (İSİM) */
         .glitch-name {
             text-align: center; 
             color: white; 
@@ -162,7 +163,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* NEON PARLAMA EFEKTİ (KARTLAR) */
         .glass-card {
             background: var(--glass-card);
             padding: 50px;
@@ -181,7 +181,6 @@
 
         h2 { color: var(--accent-blue); margin-top: 0; font-size: 2rem; border-bottom: 2px solid rgba(59,130,246,0.3); padding-bottom: 10px; display: inline-block;}
 
-        /* SİSTEM SAATİ */
         .system-clock {
             margin-top: auto; 
             padding: 15px; 
@@ -192,6 +191,46 @@
             font-size: 0.9rem;
             border-top: 1px solid rgba(59,130,246,0.2);
         }
+
+        /* SOSYAL İKONLAR VE BUTONLAR */
+        .social-links {
+            margin-top: 20px;
+            display: flex;
+            gap: 20px;
+        }
+        .social-icon {
+            color: #94a3b8;
+            font-size: 1.8rem;
+            transition: 0.3s;
+        }
+        .social-icon:hover { color: var(--accent-blue); transform: scale(1.1); }
+
+        .btn-download {
+            margin-top: 30px;
+            padding: 10px 25px;
+            background: transparent;
+            border: 1px solid var(--accent-blue);
+            color: var(--accent-blue);
+            font-family: monospace;
+            cursor: pointer;
+            transition: 0.3s;
+            display: inline-block;
+            text-decoration: none;
+        }
+        .btn-download:hover {
+            background: var(--accent-blue);
+            color: white;
+            box-shadow: 0 0 15px var(--accent-blue);
+        }
+
+        /* DAKTİLO İMLECİ */
+        .cursor {
+            display: inline-block;
+            width: 8px;
+            background-color: var(--accent-blue);
+            animation: blink 1s infinite;
+        }
+        @keyframes blink { 0% { opacity: 0; } 50% { opacity: 1; } 100% { opacity: 0; } }
 
         @media (max-width: 768px) {
             .glass-card { padding: 25px; }
@@ -210,24 +249,19 @@
 
     <nav class="sidebar" id="mySidebar">
         <h3 class="glitch-name">KAAN ERSEN</h3>
-        
         <button class="menu-btn active" onclick="openTab(event, 'hakkimda')">HAKKIMDA</button>
         <button class="menu-btn" onclick="openTab(event, 'projeler')">PROJELER</button>
         <button class="menu-btn" onclick="openTab(event, 'yetkinlikler')">YETKİNLİKLER</button>
         <button class="menu-btn" onclick="openTab(event, 'iletisim')">İLETİŞİM</button>
-        
-        <div class="system-clock" id="clock-display">
-            SYS.TIME: --:--:--
-        </div>
+        <div class="system-clock" id="clock-display">SYS.TIME: --:--:--</div>
     </nav>
 
     <main class="main-view">
         <div id="hakkimda" class="tab-content active">
             <div class="glass-card">
                 <h2>Hakkımda</h2>
-                <p style="font-size: 1.1rem; line-height: 1.8; margin-top: 20px;">
-                    Elektrik-Elektronik Mühendisi adayıyım. Özellikle AutoCAD ile proje tasarımı ve MATLAB simülasyonları üzerine çalışıyorum. Teknik detaylara hakim, çözüm odaklı bir yaklaşım benimsiyorum.
-                </p>
+                <p id="typewriter-text" style="font-size: 1.1rem; line-height: 1.8; min-height: 100px; color: #cbd5e1;"></p>
+                <a href="#" class="btn-download">[ CV İNDİR ]</a>
             </div>
         </div>
 
@@ -258,25 +292,32 @@
             <div class="glass-card">
                 <h2>İletişim</h2>
                 <p style="margin-top: 20px; font-size: 1.2rem;">📩 kaanbersen@gmail.com</p>
-                <p style="color: #94a3b8;">Projeler ve iş birlikleri için iletişime geçebilirsiniz.</p>
+                
+                <div class="social-links">
+                    <a href="https://linkedin.com" target="_blank" class="social-icon" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com" target="_blank" class="social-icon" title="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="mailto:kaanbersen@gmail.com" class="social-icon" title="Mail Gönder"><i class="fas fa-envelope"></i></a>
+                </div>
             </div>
         </div>
     </main>
 
     <script>
-        // MENÜ AÇMA/KAPAMA
+        // --- MENÜ VE SAAT AYARLARI ---
         function toggleMenu() {
             const sidebar = document.getElementById("mySidebar");
             const btn = document.querySelector(".toggle-btn");
             sidebar.classList.toggle("active");
-            if (sidebar.classList.contains("active")) {
-                btn.innerHTML = "✕ KAPAT";
-            } else {
-                btn.innerHTML = "☰ MENU";
-            }
+            btn.innerHTML = sidebar.classList.contains("active") ? "✕ KAPAT" : "☰ MENU";
         }
 
-        // SEKME GEÇİŞİ
+        function updateClock() {
+            const now = new Date();
+            document.getElementById('clock-display').innerText = "SYS.TIME: " + now.toLocaleTimeString('tr-TR');
+        }
+        setInterval(updateClock, 1000); updateClock();
+
+        // --- SEKME GEÇİŞİ VE DAKTİLO TETİKLEME ---
         function openTab(evt, tabName) {
             var i, tabcontent, menuBtn;
             tabcontent = document.getElementsByClassName("tab-content");
@@ -289,18 +330,41 @@
             }
             document.getElementById(tabName).classList.add("active");
             evt.currentTarget.classList.add("active");
-            toggleMenu(); 
+            toggleMenu();
+
+            // Hakkımda sekmesine dönülürse yazıyı tekrar yaz (Opsiyonel)
+            if(tabName === 'hakkimda') {
+                resetTypewriter();
+            }
         }
 
-        // SİSTEM SAATİ
-        function updateClock() {
-            const now = new Date();
-            const timeString = now.toLocaleTimeString('tr-TR');
-            document.getElementById('clock-display').innerText = "SYS.TIME: " + timeString;
+        // --- DAKTİLO EFEKTİ KODLARI ---
+        const textToType = "Elektrik-Elektronik Mühendisi adayıyım. Özellikle AutoCAD ile proje tasarımı ve MATLAB simülasyonları üzerine çalışıyorum. Teknik detaylara hakim, çözüm odaklı bir yaklaşım benimsiyorum.";
+        const typeEl = document.getElementById("typewriter-text");
+        let typeIdx = 0;
+        let typeInterval;
+
+        function startTypewriter() {
+            typeEl.innerHTML = ""; // Temizle
+            typeIdx = 0;
+            clearInterval(typeInterval); // Eski döngüyü durdur
+            typeInterval = setInterval(() => {
+                if(typeIdx < textToType.length) {
+                    typeEl.innerHTML += textToType.charAt(typeIdx);
+                    typeIdx++;
+                } else {
+                    clearInterval(typeInterval); // Bitince dur
+                }
+            }, 30); // Yazma hızı (ms)
         }
-        setInterval(updateClock, 1000); 
-        updateClock(); 
+
+        function resetTypewriter() {
+            startTypewriter();
+        }
+
+        // Sayfa ilk açıldığında yazmaya başla
+        window.onload = startTypewriter;
+
     </script>
-
 </body>
 </html>

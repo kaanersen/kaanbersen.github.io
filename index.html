@@ -5,118 +5,120 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolyo | Kaan Ersen</title>
     <style>
-        /* 1. TEMEL AYARLAR (AYNEN KORUNDU) */
-        body {
+        :root {
+            --bg-deep: #020617;
+            --sidebar-bg: rgba(15, 23, 42, 0.9);
+            --accent-blue: #3b82f6;
+            --glass-card: rgba(15, 23, 42, 0.7); /* Kart şeffaflığı artırıldı */
+        }
+
+        body, html {
             margin: 0; padding: 0;
-            font-family: 'Segoe UI', sans-serif;
-            background-color: #020617; /* Güvenlik rengi */
+            font-family: 'Inter', sans-serif;
             color: #f1f5f9;
             height: 100vh;
             overflow: hidden;
-            cursor: crosshair; /* İmleç korundu */
         }
 
-        /* 2. ARKA PLAN (bg.png AYNEN KORUNDU) */
+        /* ARKA PLAN - GÖRÜNÜRLÜK ARTIRILDI */
         .bg-fixed {
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background-image: linear-gradient(rgba(2, 6, 23, 0.8), rgba(2, 6, 23, 0.8)), 
-                              url('bg.png');
+            /* 0.8 olan karartma 0.4'e çekildi, resim artık çok net */
+            background: linear-gradient(rgba(2, 6, 23, 0.4), rgba(2, 6, 23, 0.4)), 
+                        url('Gemini_Generated_Image_xw1glixw1glixw1g.png');
             background-size: cover;
             background-position: center;
-            z-index: -1;
+            z-index: -2;
         }
 
-        /* 3. MENÜ TASARIMI (AYNEN KORUNDU) */
+        /* ELEKTRİK EFEKTİ - TIKLAMAYI ENGELLEMEMESİ İÇİN pointer-events: none eklendi */
+        #intro-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: #fff;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: flashOut 1.2s forwards;
+            pointer-events: none; /* Tıklamayı asla engellemez */
+        }
+
+        @keyframes flashOut {
+            0% { opacity: 1; }
+            15% { opacity: 0.8; background: var(--accent-blue); }
+            30% { opacity: 1; background: #000; }
+            100% { opacity: 0; visibility: hidden; }
+        }
+
+        /* SIDEBAR - TIKLANABİLİRLİK İÇİN Z-INDEX ARTIRILDI */
         .sidebar {
             width: 260px;
             height: 100vh;
-            background: rgba(15, 23, 42, 0.95);
+            background: var(--sidebar-bg);
             position: fixed;
             left: 0; top: 0;
             display: flex;
             flex-direction: column;
             border-right: 1px solid rgba(59, 130, 246, 0.3);
-            padding-top: 50px;
-            z-index: 100;
+            padding-top: 40px;
+            z-index: 1000; /* En üst katmana çıkarıldı */
         }
 
         .menu-btn {
-            padding: 20px 30px;
+            padding: 18px 30px;
             cursor: pointer;
             color: #94a3b8;
             font-weight: 600;
+            transition: 0.3s;
             border: none;
             background: none;
             text-align: left;
             font-size: 1rem;
             border-left: 4px solid transparent;
-            transition: 0.3s;
+            z-index: 1001; /* Butonlara ekstra öncelik */
         }
 
         .menu-btn:hover, .menu-btn.active {
             color: white;
             background: rgba(59, 130, 246, 0.2);
-            border-left: 4px solid #3b82f6;
+            border-left: 4px solid var(--accent-blue);
         }
 
-        /* 4. İÇERİK ALANI (AYNEN KORUNDU) */
+        /* İÇERİK ALANI - RESMİ KAPATMAMAK İÇİN SAĞA HİZALANDI VE KÜÇÜLTÜLDÜ */
         .main-view {
             margin-left: 260px;
             height: 100vh;
             display: flex;
+            justify-content: flex-start; /* Sola (menünün yanına) yaslandı */
             align-items: center;
-            padding-left: 80px;
+            padding-left: 60px;
+            box-sizing: border-box;
+            z-index: 10;
         }
 
         .tab-content {
-            display: none; /* Varsayılan olarak hepsi gizli */
+            display: none;
             width: 100%;
-            max-width: 700px;
+            max-width: 600px; /* Kart küçültüldü, resim daha çok görünecek */
             animation: fadeIn 0.5s ease;
         }
 
-        .tab-content.active { display: block; /* Sadece seçilen görünür */ }
+        .tab-content.active { display: block; }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* 5. KART TASARIMLARI (3D TILT KORUNDU) */
         .glass-card {
-            background: rgba(15, 23, 42, 0.8);
+            background: var(--glass-card);
             padding: 40px;
             border-radius: 15px;
-            border: 1px solid rgba(255,255,255,0.1);
             backdrop-filter: blur(10px);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            transform-style: preserve-3d;
-            transform: perspective(1000px);
-            transition: transform 0.1s;
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
-        h2 { color: #3b82f6; margin-top: 0; font-size: 2rem; }
+        h2 { color: var(--accent-blue); margin-top: 0; }
 
-        .skill { margin: 15px 0; }
-        .bar-bg { background: rgba(255,255,255,0.1); height: 8px; border-radius: 4px; overflow: hidden; }
-        .bar-fill { background: #3b82f6; height: 100%; border-radius: 4px; }
-
-        /* --- YENİ EKLENEN KISIM: OYUN ALANI --- */
-        #gameCanvas {
-            background: #0f172a;
-            border: 2px solid #3b82f6;
-            border-radius: 8px;
-            display: block;
-            margin-top: 20px;
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
-            cursor: default; /* Oyun içinde normal imleç */
-        }
-        .game-info {
-            display: flex; justify-content: space-between; margin-top: 10px; font-family: monospace; color: #3b82f6;
-        }
-        
         @media (max-width: 768px) {
             .sidebar { width: 100%; height: auto; position: relative; }
             .main-view { margin-left: 0; padding: 20px; }
@@ -127,48 +129,63 @@
 
     <div class="bg-fixed"></div>
 
+    <div id="intro-overlay">
+        <h1 style="color: #020617; font-family: monospace;">POWER ON...</h1>
+    </div>
+
     <nav class="sidebar">
-        <h3 style="text-align:center; color:white; margin-bottom:40px;">KAAN ERSEN</h3>
+        <h3 style="text-align:center; color:white;">KAAN ERSEN</h3>
         <button class="menu-btn active" onclick="openTab(event, 'hakkimda')">HAKKIMDA</button>
         <button class="menu-btn" onclick="openTab(event, 'projeler')">PROJELER</button>
         <button class="menu-btn" onclick="openTab(event, 'yetkinlikler')">YETKİNLİKLER</button>
-        <button class="menu-btn" onclick="openTab(event, 'simulasyon')">PCB SİMÜLASYON</button> <button class="menu-btn" onclick="openTab(event, 'iletisim')">İLETİŞİM</button>
+        <button class="menu-btn" onclick="openTab(event, 'iletisim')">İLETİŞİM</button>
     </nav>
 
     <main class="main-view">
-        
         <div id="hakkimda" class="tab-content active">
             <div class="glass-card">
                 <h2>Hakkımda</h2>
-                <p id="typewriter-text" style="font-size: 1.1rem; line-height: 1.6; min-height: 80px; color: #cbd5e1;"></p>
-                <button style="margin-top:20px; padding:10px 20px; border:1px solid #3b82f6; background:transparent; color:#3b82f6; border-radius:5px; cursor:pointer;">ÖZGEÇMİŞ İNDİR</button>
+                <p>Elektrik-Elektronik Mühendisi adayıyım. Özellikle AutoCAD ile proje tasarımı ve MATLAB simülasyonları üzerine çalışıyorum.</p>
             </div>
         </div>
 
         <div id="projeler" class="tab-content">
             <div class="glass-card">
                 <h2>Projeler</h2>
-                <div style="background:rgba(255,255,255,0.05); padding:15px; margin-bottom:10px; border-radius:8px;">
-                    <h4 style="margin:0; color:#3b82f6;">STM32 Motor Sürücü</h4>
-                    <p style="font-size:0.9rem; margin:5px 0 0 0;">FOC algoritmalı kontrol kartı.</p>
-                </div>
-                <div style="background:rgba(255,255,255,0.05); padding:15px; border-radius:8px;">
-                    <h4 style="margin:0; color:#3b82f6;">IoT Sensör Ağı</h4>
-                    <p style="font-size:0.9rem; margin:5px 0 0 0;">ESP32 tabanlı veri toplama.</p>
-                </div>
+                <p>AutoCAD pano tasarımı ve STM32 gömülü yazılım projelerimi burada sergileyeceğim.</p>
             </div>
         </div>
 
         <div id="yetkinlikler" class="tab-content">
             <div class="glass-card">
                 <h2>Yetkinlikler</h2>
-                <div class="skill"><span>C / C++ (Gömülü) - 90%</span><div class="bar-bg"><div class="bar-fill" style="width: 90%;"></div></div></div>
-                <div class="skill"><span>Altium Designer - 85%</span><div class="bar-bg"><div class="bar-fill" style="width: 85%;"></div></div></div>
-                <div class="skill"><span>MATLAB - 80%</span><div class="bar-bg"><div class="bar-fill" style="width: 80%;"></div></div></div>
+                <p>AutoCAD, MATLAB/Simulink ve Proteus simülasyon yetkinliklerimi kapsar.</p>
             </div>
         </div>
 
-        <div id="simulasyon" class="tab-content">
-            <div class="glass-card" style="text-align: center;">
-                <h2>PCB Trace Oyunu</h2>
-                <p style="font-size: 0.9rem; color: #94a3b8;">Y
+        <div id="iletisim" class="tab-content">
+            <div class="glass-card">
+                <h2>İletişim</h2>
+                <p>İletişim: kaanersen@example.com</p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, menuBtn;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            menuBtn = document.getElementsByClassName("menu-btn");
+            for (i = 0; i < menuBtn.length; i++) {
+                menuBtn[i].classList.remove("active");
+            }
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
+
+</body>
+</html>

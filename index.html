@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolyo | Kaan Ersen</title>
     <style>
+        /* GÜVENLİK ÖNLEMİ: Resim yüklenmezse bu renk görünecek (Beyaz ekranı engeller) */
+        body {
+            background-color: #020617 !important; 
+        }
+
         :root {
             --bg-deep: #020617;
             --sidebar-bg: rgba(15, 23, 42, 0.95);
@@ -19,8 +24,7 @@
             color: var(--text-color);
             height: 100vh;
             overflow: hidden;
-            /* 1. ÖZELLİK: CROSSHAIR (ARTI) İMLEÇ */
-            cursor: crosshair; 
+            cursor: crosshair; /* 1. ÖZELLİK: ARTI İMLEÇ */
         }
 
         /* ARKA PLAN */
@@ -28,32 +32,34 @@
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background: linear-gradient(rgba(2, 6, 23, 0.5), rgba(2, 6, 23, 0.5)), 
-                        url('Gemini_Generated_Image_xw1glixw1glixw1g.png');
+            /* Önce koyu renk, sonra resim. Resim yoksa koyu renk kalır. */
+            background-color: #020617;
+            background-image: linear-gradient(rgba(2, 6, 23, 0.5), rgba(2, 6, 23, 0.5)), 
+                              url('Gemini_Generated_Image_xw1glixw1glixw1g.png');
             background-size: cover;
             background-position: center;
             z-index: -2;
         }
 
-        /* ELEKTRİK EFEKTİ */
+        /* AÇILIŞ EFEKTİ - GÜVENLİ VERSİYON */
         #intro-overlay {
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background: #fff;
+            background: #020617; /* Varsayılan koyu olsun, beyaz kör etmesin */
             z-index: 9999;
             display: flex;
             justify-content: center;
             align-items: center;
-            animation: flashOut 1.2s forwards;
-            pointer-events: none;
+            animation: safeFlash 1.5s forwards; /* Süre biraz uzatıldı */
+            pointer-events: none; /* Tıklamayı engellemez */
         }
 
-        @keyframes flashOut {
-            0% { opacity: 1; }
-            15% { opacity: 0.8; background: var(--accent-blue); }
-            30% { opacity: 1; background: #000; }
-            100% { opacity: 0; visibility: hidden; }
+        @keyframes safeFlash {
+            0% { opacity: 1; background: #fff; } /* Beyazla başla */
+            20% { opacity: 1; background: var(--accent-blue); } /* Maviye dön */
+            40% { opacity: 1; background: #020617; } /* Siyaha dön */
+            100% { opacity: 0; visibility: hidden; } /* Kaybol */
         }
 
         /* SIDEBAR */
@@ -72,7 +78,7 @@
 
         .menu-btn {
             padding: 18px 30px;
-            cursor: crosshair; /* İmleç burada da crosshair olsun */
+            cursor: crosshair;
             color: #94a3b8;
             font-weight: 600;
             transition: 0.3s;
@@ -80,4 +86,40 @@
             background: none;
             text-align: left;
             font-size: 1rem;
-            border-left: 4
+            border-left: 4px solid transparent;
+            z-index: 1001;
+        }
+
+        .menu-btn:hover, .menu-btn.active {
+            color: white;
+            background: rgba(59, 130, 246, 0.2);
+            border-left: 4px solid var(--accent-blue);
+        }
+
+        /* ANA İÇERİK */
+        .main-view {
+            margin-left: 260px;
+            height: 100vh;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding-left: 80px;
+            box-sizing: border-box;
+            z-index: 10;
+        }
+
+        .tab-content {
+            display: none;
+            width: 100%;
+            max-width: 650px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-content.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 2.

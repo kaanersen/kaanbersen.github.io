@@ -192,7 +192,6 @@
             border-top: 1px solid rgba(59,130,246,0.2);
         }
 
-        /* SOSYAL İKONLAR VE BUTONLAR */
         .social-links {
             margin-top: 20px;
             display: flex;
@@ -245,9 +244,9 @@
         <h1 style="color: #020617; font-family: monospace;">SYSTEM LOADING...</h1>
     </div>
 
-    <button class="toggle-btn" onclick="toggleMenu()">☰ MENU</button>
+    <button class="toggle-btn" onmouseenter="openMenu()" onclick="toggleMenu()">☰ MENU</button>
 
-    <nav class="sidebar" id="mySidebar">
+    <nav class="sidebar" id="mySidebar" onmouseleave="closeMenu()">
         <h3 class="glitch-name">KAAN ERSEN</h3>
         <button class="menu-btn active" onclick="openTab(event, 'hakkimda')">HAKKIMDA</button>
         <button class="menu-btn" onclick="openTab(event, 'projeler')">PROJELER</button>
@@ -261,7 +260,8 @@
             <div class="glass-card">
                 <h2>Hakkımda</h2>
                 <p id="typewriter-text" style="font-size: 1.1rem; line-height: 1.8; min-height: 100px; color: #cbd5e1;"></p>
-                <a href="#" class="btn-download">[ CV İNDİR ]</a>
+                
+                <a href="cv.pdf" download class="btn-download">[ CV İNDİR ]</a>
             </div>
         </div>
 
@@ -295,7 +295,7 @@
                 
                 <div class="social-links">
                     <a href="https://linkedin.com" target="_blank" class="social-icon" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                    <a href="https://github.com" target="_blank" class="social-icon" title="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://github.com/kaanersen" target="_blank" class="social-icon" title="GitHub"><i class="fab fa-github"></i></a>
                     <a href="mailto:kaanbersen@gmail.com" class="social-icon" title="Mail Gönder"><i class="fas fa-envelope"></i></a>
                 </div>
             </div>
@@ -303,12 +303,29 @@
     </main>
 
     <script>
-        // --- MENÜ VE SAAT AYARLARI ---
-        function toggleMenu() {
+        // --- MENÜ KONTROL SİSTEMİ (HOVER + CLICK) ---
+        
+        function openMenu() {
             const sidebar = document.getElementById("mySidebar");
             const btn = document.querySelector(".toggle-btn");
-            sidebar.classList.toggle("active");
-            btn.innerHTML = sidebar.classList.contains("active") ? "✕ KAPAT" : "☰ MENU";
+            sidebar.classList.add("active");
+            btn.innerHTML = "✕ KAPAT";
+        }
+
+        function closeMenu() {
+            const sidebar = document.getElementById("mySidebar");
+            const btn = document.querySelector(".toggle-btn");
+            sidebar.classList.remove("active");
+            btn.innerHTML = "☰ MENU";
+        }
+
+        function toggleMenu() {
+            const sidebar = document.getElementById("mySidebar");
+            if (sidebar.classList.contains("active")) {
+                closeMenu();
+            } else {
+                openMenu();
+            }
         }
 
         function updateClock() {
@@ -317,7 +334,6 @@
         }
         setInterval(updateClock, 1000); updateClock();
 
-        // --- SEKME GEÇİŞİ VE DAKTİLO TETİKLEME ---
         function openTab(evt, tabName) {
             var i, tabcontent, menuBtn;
             tabcontent = document.getElementsByClassName("tab-content");
@@ -330,39 +346,38 @@
             }
             document.getElementById(tabName).classList.add("active");
             evt.currentTarget.classList.add("active");
-            toggleMenu();
+            
+            // Sekmeye tıklandığında menüyü kapat
+            closeMenu();
 
-            // Hakkımda sekmesine dönülürse yazıyı tekrar yaz (Opsiyonel)
             if(tabName === 'hakkimda') {
                 resetTypewriter();
             }
         }
 
-        // --- DAKTİLO EFEKTİ KODLARI ---
         const textToType = "Elektrik-Elektronik Mühendisi adayıyım. Özellikle AutoCAD ile proje tasarımı ve MATLAB simülasyonları üzerine çalışıyorum. Teknik detaylara hakim, çözüm odaklı bir yaklaşım benimsiyorum.";
         const typeEl = document.getElementById("typewriter-text");
         let typeIdx = 0;
         let typeInterval;
 
         function startTypewriter() {
-            typeEl.innerHTML = ""; // Temizle
+            typeEl.innerHTML = "";
             typeIdx = 0;
-            clearInterval(typeInterval); // Eski döngüyü durdur
+            clearInterval(typeInterval);
             typeInterval = setInterval(() => {
                 if(typeIdx < textToType.length) {
                     typeEl.innerHTML += textToType.charAt(typeIdx);
                     typeIdx++;
                 } else {
-                    clearInterval(typeInterval); // Bitince dur
+                    clearInterval(typeInterval);
                 }
-            }, 30); // Yazma hızı (ms)
+            }, 30);
         }
 
         function resetTypewriter() {
             startTypewriter();
         }
 
-        // Sayfa ilk açıldığında yazmaya başla
         window.onload = startTypewriter;
 
     </script>

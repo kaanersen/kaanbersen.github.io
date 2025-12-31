@@ -5,31 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolyo | Kaan Ersen</title>
     <style>
-        /* TEMEL AYARLAR */
+        /* 1. TEMEL AYARLAR (AYNEN KORUNDU) */
         body {
-            margin: 0;
-            padding: 0;
+            margin: 0; padding: 0;
             font-family: 'Segoe UI', sans-serif;
-            background-color: #020617; /* Resim yoksa lacivert kalır */
+            background-color: #020617; /* Güvenlik rengi */
             color: #f1f5f9;
             height: 100vh;
-            overflow: hidden; /* Kaydırma yok */
-            cursor: crosshair; /* İstediğin + imleci */
+            overflow: hidden;
+            cursor: crosshair; /* İmleç korundu */
         }
 
-        /* ARKA PLAN RESMİ - ARTIK "bg.png" OLARAK AYARLI */
+        /* 2. ARKA PLAN (bg.png AYNEN KORUNDU) */
         .bg-fixed {
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background-image: linear-gradient(rgba(2, 6, 23, 0.7), rgba(2, 6, 23, 0.7)), 
-                              url('bg.png'); /* İSMİ DEĞİŞTİRDİĞİN DOSYA */
+            background-image: linear-gradient(rgba(2, 6, 23, 0.8), rgba(2, 6, 23, 0.8)), 
+                              url('bg.png');
             background-size: cover;
             background-position: center;
             z-index: -1;
         }
 
-        /* SOL MENÜ (SIDEBAR) */
+        /* 3. MENÜ TASARIMI (AYNEN KORUNDU) */
         .sidebar {
             width: 260px;
             height: 100vh;
@@ -40,7 +39,7 @@
             flex-direction: column;
             border-right: 1px solid rgba(59, 130, 246, 0.3);
             padding-top: 50px;
-            z-index: 100; /* En üstte */
+            z-index: 100;
         }
 
         .menu-btn {
@@ -62,32 +61,30 @@
             border-left: 4px solid #3b82f6;
         }
 
-        /* İÇERİK ALANI */
+        /* 4. İÇERİK ALANI (AYNEN KORUNDU) */
         .main-view {
             margin-left: 260px;
             height: 100vh;
             display: flex;
-            align-items: center; /* Dikey ortala */
+            align-items: center;
             padding-left: 80px;
         }
 
         .tab-content {
-            display: none; /* Gizli */
+            display: none; /* Varsayılan olarak hepsi gizli */
             width: 100%;
             max-width: 700px;
             animation: fadeIn 0.5s ease;
         }
 
-        .tab-content.active {
-            display: block; /* Sadece aktif olan görünsün */
-        }
+        .tab-content.active { display: block; /* Sadece seçilen görünür */ }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* KART TASARIMI */
+        /* 5. KART TASARIMLARI (3D TILT KORUNDU) */
         .glass-card {
             background: rgba(15, 23, 42, 0.8);
             padding: 40px;
@@ -95,7 +92,6 @@
             border: 1px solid rgba(255,255,255,0.1);
             backdrop-filter: blur(10px);
             box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            /* 3D EFEKT */
             transform-style: preserve-3d;
             transform: perspective(1000px);
             transition: transform 0.1s;
@@ -103,15 +99,27 @@
 
         h2 { color: #3b82f6; margin-top: 0; font-size: 2rem; }
 
-        /* YETKİNLİK BARLARI */
         .skill { margin: 15px 0; }
         .bar-bg { background: rgba(255,255,255,0.1); height: 8px; border-radius: 4px; overflow: hidden; }
         .bar-fill { background: #3b82f6; height: 100%; border-radius: 4px; }
 
-        /* MOBİL UYUM */
+        /* --- YENİ EKLENEN KISIM: OYUN ALANI --- */
+        #gameCanvas {
+            background: #0f172a;
+            border: 2px solid #3b82f6;
+            border-radius: 8px;
+            display: block;
+            margin-top: 20px;
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
+            cursor: default; /* Oyun içinde normal imleç */
+        }
+        .game-info {
+            display: flex; justify-content: space-between; margin-top: 10px; font-family: monospace; color: #3b82f6;
+        }
+        
         @media (max-width: 768px) {
             .sidebar { width: 100%; height: auto; position: relative; }
-            .main-view { margin-left: 0; padding: 20px; align-items: flex-start; }
+            .main-view { margin-left: 0; padding: 20px; }
         }
     </style>
 </head>
@@ -124,7 +132,7 @@
         <button class="menu-btn active" onclick="openTab(event, 'hakkimda')">HAKKIMDA</button>
         <button class="menu-btn" onclick="openTab(event, 'projeler')">PROJELER</button>
         <button class="menu-btn" onclick="openTab(event, 'yetkinlikler')">YETKİNLİKLER</button>
-        <button class="menu-btn" onclick="openTab(event, 'iletisim')">İLETİŞİM</button>
+        <button class="menu-btn" onclick="openTab(event, 'simulasyon')">PCB SİMÜLASYON</button> <button class="menu-btn" onclick="openTab(event, 'iletisim')">İLETİŞİM</button>
     </nav>
 
     <main class="main-view">
@@ -160,59 +168,7 @@
             </div>
         </div>
 
-        <div id="iletisim" class="tab-content">
-            <div class="glass-card">
-                <h2>İletişim</h2>
-                <p>📧 kaanersen@example.com</p>
-                <p>🔗 linkedin.com/in/kaanersen</p>
-            </div>
-        </div>
-
-    </main>
-
-    <script>
-        // SEKME GEÇİŞİ
-        function openTab(evt, tabName) {
-            var i, tabcontent, menuBtn;
-            tabcontent = document.getElementsByClassName("tab-content");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].classList.remove("active");
-            }
-            menuBtn = document.getElementsByClassName("menu-btn");
-            for (i = 0; i < menuBtn.length; i++) {
-                menuBtn[i].classList.remove("active");
-            }
-            document.getElementById(tabName).classList.add("active");
-            evt.currentTarget.classList.add("active");
-        }
-
-        // DAKTİLO EFEKTİ
-        const text = "Elektrik-Elektronik Mühendisi olarak teknik analiz ve yenilikçi çözümler üzerine odaklanıyorum. Mühendislik disiplinini modern teknolojiyle birleştiriyorum.";
-        const typeEl = document.getElementById("typewriter-text");
-        let idx = 0;
-        function type() {
-            if(idx < text.length) {
-                typeEl.innerHTML += text.charAt(idx);
-                idx++;
-                setTimeout(type, 30);
-            }
-        }
-        window.onload = type; // Direkt başla, bekleme yok
-
-        // 3D KART EFEKTİ
-        const cards = document.querySelectorAll('.glass-card');
-        cards.forEach(c => {
-            c.addEventListener('mousemove', (e) => {
-                const r = c.getBoundingClientRect();
-                const x = (e.clientX - r.left - r.width/2) / 20;
-                const y = (e.clientY - r.top - r.height/2) / -20;
-                c.style.transform = `perspective(1000px) rotateX(${y}deg) rotateY(${x}deg)`;
-            });
-            c.addEventListener('mouseleave', () => {
-                c.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
-            });
-        });
-    </script>
-
-</body>
-</html>
+        <div id="simulasyon" class="tab-content">
+            <div class="glass-card" style="text-align: center;">
+                <h2>PCB Trace Oyunu</h2>
+                <p style="font-size: 0.9rem; color: #94a3b8;">Y

@@ -5,123 +5,113 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolyo | Kaan Ersen</title>
     <style>
-        :root {
-            --bg-deep: #020617;
-            --sidebar-bg: rgba(15, 23, 42, 0.9);
-            --accent-blue: #3b82f6;
-            --glass-card: rgba(15, 23, 42, 0.7); /* Kart şeffaflığı artırıldı */
-        }
-
-        body, html {
-            margin: 0; padding: 0;
-            font-family: 'Inter', sans-serif;
+        /* TEMEL AYARLAR */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #020617; /* Resim yoksa lacivert kalır */
             color: #f1f5f9;
             height: 100vh;
-            overflow: hidden;
+            overflow: hidden; /* Kaydırma yok */
+            cursor: crosshair; /* İstediğin + imleci */
         }
 
-        /* ARKA PLAN - GÖRÜNÜRLÜK ARTIRILDI */
+        /* ARKA PLAN RESMİ - ARTIK "bg.png" OLARAK AYARLI */
         .bg-fixed {
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            /* 0.8 olan karartma 0.4'e çekildi, resim artık çok net */
-            background: linear-gradient(rgba(2, 6, 23, 0.4), rgba(2, 6, 23, 0.4)), 
-                        url('Gemini_Generated_Image_xw1glixw1glixw1g.png');
+            background-image: linear-gradient(rgba(2, 6, 23, 0.7), rgba(2, 6, 23, 0.7)), 
+                              url('bg.png'); /* İSMİ DEĞİŞTİRDİĞİN DOSYA */
             background-size: cover;
             background-position: center;
-            z-index: -2;
+            z-index: -1;
         }
 
-        /* ELEKTRİK EFEKTİ - TIKLAMAYI ENGELLEMEMESİ İÇİN pointer-events: none eklendi */
-        #intro-overlay {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: #fff;
-            z-index: 9999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            animation: flashOut 1.2s forwards;
-            pointer-events: none; /* Tıklamayı asla engellemez */
-        }
-
-        @keyframes flashOut {
-            0% { opacity: 1; }
-            15% { opacity: 0.8; background: var(--accent-blue); }
-            30% { opacity: 1; background: #000; }
-            100% { opacity: 0; visibility: hidden; }
-        }
-
-        /* SIDEBAR - TIKLANABİLİRLİK İÇİN Z-INDEX ARTIRILDI */
+        /* SOL MENÜ (SIDEBAR) */
         .sidebar {
             width: 260px;
             height: 100vh;
-            background: var(--sidebar-bg);
+            background: rgba(15, 23, 42, 0.95);
             position: fixed;
             left: 0; top: 0;
             display: flex;
             flex-direction: column;
             border-right: 1px solid rgba(59, 130, 246, 0.3);
-            padding-top: 40px;
-            z-index: 1000; /* En üst katmana çıkarıldı */
+            padding-top: 50px;
+            z-index: 100; /* En üstte */
         }
 
         .menu-btn {
-            padding: 18px 30px;
+            padding: 20px 30px;
             cursor: pointer;
             color: #94a3b8;
             font-weight: 600;
-            transition: 0.3s;
             border: none;
             background: none;
             text-align: left;
             font-size: 1rem;
             border-left: 4px solid transparent;
-            z-index: 1001; /* Butonlara ekstra öncelik */
+            transition: 0.3s;
         }
 
         .menu-btn:hover, .menu-btn.active {
             color: white;
             background: rgba(59, 130, 246, 0.2);
-            border-left: 4px solid var(--accent-blue);
+            border-left: 4px solid #3b82f6;
         }
 
-        /* İÇERİK ALANI - RESMİ KAPATMAMAK İÇİN SAĞA HİZALANDI VE KÜÇÜLTÜLDÜ */
+        /* İÇERİK ALANI */
         .main-view {
             margin-left: 260px;
             height: 100vh;
             display: flex;
-            justify-content: flex-start; /* Sola (menünün yanına) yaslandı */
-            align-items: center;
-            padding-left: 60px;
-            box-sizing: border-box;
-            z-index: 10;
+            align-items: center; /* Dikey ortala */
+            padding-left: 80px;
         }
 
         .tab-content {
-            display: none;
+            display: none; /* Gizli */
             width: 100%;
-            max-width: 600px; /* Kart küçültüldü, resim daha çok görünecek */
+            max-width: 700px;
             animation: fadeIn 0.5s ease;
         }
 
-        .tab-content.active { display: block; }
-
-        .glass-card {
-            background: var(--glass-card);
-            padding: 40px;
-            border-radius: 15px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.1);
+        .tab-content.active {
+            display: block; /* Sadece aktif olan görünsün */
         }
 
-        h2 { color: var(--accent-blue); margin-top: 0; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
+        /* KART TASARIMI */
+        .glass-card {
+            background: rgba(15, 23, 42, 0.8);
+            padding: 40px;
+            border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            /* 3D EFEKT */
+            transform-style: preserve-3d;
+            transform: perspective(1000px);
+            transition: transform 0.1s;
+        }
+
+        h2 { color: #3b82f6; margin-top: 0; font-size: 2rem; }
+
+        /* YETKİNLİK BARLARI */
+        .skill { margin: 15px 0; }
+        .bar-bg { background: rgba(255,255,255,0.1); height: 8px; border-radius: 4px; overflow: hidden; }
+        .bar-fill { background: #3b82f6; height: 100%; border-radius: 4px; }
+
+        /* MOBİL UYUM */
         @media (max-width: 768px) {
             .sidebar { width: 100%; height: auto; position: relative; }
-            .main-view { margin-left: 0; padding: 20px; }
+            .main-view { margin-left: 0; padding: 20px; align-items: flex-start; }
         }
     </style>
 </head>
@@ -129,12 +119,8 @@
 
     <div class="bg-fixed"></div>
 
-    <div id="intro-overlay">
-        <h1 style="color: #020617; font-family: monospace;">POWER ON...</h1>
-    </div>
-
     <nav class="sidebar">
-        <h3 style="text-align:center; color:white;">KAAN ERSEN</h3>
+        <h3 style="text-align:center; color:white; margin-bottom:40px;">KAAN ERSEN</h3>
         <button class="menu-btn active" onclick="openTab(event, 'hakkimda')">HAKKIMDA</button>
         <button class="menu-btn" onclick="openTab(event, 'projeler')">PROJELER</button>
         <button class="menu-btn" onclick="openTab(event, 'yetkinlikler')">YETKİNLİKLER</button>
@@ -142,36 +128,50 @@
     </nav>
 
     <main class="main-view">
+        
         <div id="hakkimda" class="tab-content active">
             <div class="glass-card">
                 <h2>Hakkımda</h2>
-                <p>Elektrik-Elektronik Mühendisi adayıyım. Özellikle AutoCAD ile proje tasarımı ve MATLAB simülasyonları üzerine çalışıyorum.</p>
+                <p id="typewriter-text" style="font-size: 1.1rem; line-height: 1.6; min-height: 80px; color: #cbd5e1;"></p>
+                <button style="margin-top:20px; padding:10px 20px; border:1px solid #3b82f6; background:transparent; color:#3b82f6; border-radius:5px; cursor:pointer;">ÖZGEÇMİŞ İNDİR</button>
             </div>
         </div>
 
         <div id="projeler" class="tab-content">
             <div class="glass-card">
                 <h2>Projeler</h2>
-                <p>AutoCAD pano tasarımı ve STM32 gömülü yazılım projelerimi burada sergileyeceğim.</p>
+                <div style="background:rgba(255,255,255,0.05); padding:15px; margin-bottom:10px; border-radius:8px;">
+                    <h4 style="margin:0; color:#3b82f6;">STM32 Motor Sürücü</h4>
+                    <p style="font-size:0.9rem; margin:5px 0 0 0;">FOC algoritmalı kontrol kartı.</p>
+                </div>
+                <div style="background:rgba(255,255,255,0.05); padding:15px; border-radius:8px;">
+                    <h4 style="margin:0; color:#3b82f6;">IoT Sensör Ağı</h4>
+                    <p style="font-size:0.9rem; margin:5px 0 0 0;">ESP32 tabanlı veri toplama.</p>
+                </div>
             </div>
         </div>
 
         <div id="yetkinlikler" class="tab-content">
             <div class="glass-card">
                 <h2>Yetkinlikler</h2>
-                <p>AutoCAD, MATLAB/Simulink ve Proteus simülasyon yetkinliklerimi kapsar.</p>
+                <div class="skill"><span>C / C++ (Gömülü) - 90%</span><div class="bar-bg"><div class="bar-fill" style="width: 90%;"></div></div></div>
+                <div class="skill"><span>Altium Designer - 85%</span><div class="bar-bg"><div class="bar-fill" style="width: 85%;"></div></div></div>
+                <div class="skill"><span>MATLAB - 80%</span><div class="bar-bg"><div class="bar-fill" style="width: 80%;"></div></div></div>
             </div>
         </div>
 
         <div id="iletisim" class="tab-content">
             <div class="glass-card">
                 <h2>İletişim</h2>
-                <p>İletişim: kaanersen@example.com</p>
+                <p>📧 kaanersen@example.com</p>
+                <p>🔗 linkedin.com/in/kaanersen</p>
             </div>
         </div>
+
     </main>
 
     <script>
+        // SEKME GEÇİŞİ
         function openTab(evt, tabName) {
             var i, tabcontent, menuBtn;
             tabcontent = document.getElementsByClassName("tab-content");
@@ -185,6 +185,33 @@
             document.getElementById(tabName).classList.add("active");
             evt.currentTarget.classList.add("active");
         }
+
+        // DAKTİLO EFEKTİ
+        const text = "Elektrik-Elektronik Mühendisi olarak teknik analiz ve yenilikçi çözümler üzerine odaklanıyorum. Mühendislik disiplinini modern teknolojiyle birleştiriyorum.";
+        const typeEl = document.getElementById("typewriter-text");
+        let idx = 0;
+        function type() {
+            if(idx < text.length) {
+                typeEl.innerHTML += text.charAt(idx);
+                idx++;
+                setTimeout(type, 30);
+            }
+        }
+        window.onload = type; // Direkt başla, bekleme yok
+
+        // 3D KART EFEKTİ
+        const cards = document.querySelectorAll('.glass-card');
+        cards.forEach(c => {
+            c.addEventListener('mousemove', (e) => {
+                const r = c.getBoundingClientRect();
+                const x = (e.clientX - r.left - r.width/2) / 20;
+                const y = (e.clientY - r.top - r.height/2) / -20;
+                c.style.transform = `perspective(1000px) rotateX(${y}deg) rotateY(${x}deg)`;
+            });
+            c.addEventListener('mouseleave', () => {
+                c.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+            });
+        });
     </script>
 
 </body>

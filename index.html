@@ -5,12 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolyo | Kaan Ersen</title>
     <style>
-        /* 1. RENK VE TEMA AYARLARI */
         :root {
             --bg-deep: #020617;
-            --sidebar-bg: rgba(15, 23, 42, 0.98);
+            --sidebar-bg: rgba(15, 23, 42, 0.9);
             --accent-blue: #3b82f6;
-            --glass-card: rgba(15, 23, 42, 0.8);
+            --glass-card: rgba(15, 23, 42, 0.7); /* Kart şeffaflığı artırıldı */
         }
 
         body, html {
@@ -18,22 +17,23 @@
             font-family: 'Inter', sans-serif;
             color: #f1f5f9;
             height: 100vh;
-            overflow: hidden; /* KAYDIRMAYI TAMAMEN KAPATTIK */
+            overflow: hidden;
         }
 
-        /* 2. ARKA PLAN GÖRSELİN */
+        /* ARKA PLAN - GÖRÜNÜRLÜK ARTIRILDI */
         .bg-fixed {
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background: linear-gradient(rgba(2, 6, 23, 0.8), rgba(2, 6, 23, 0.8)), 
+            /* 0.8 olan karartma 0.4'e çekildi, resim artık çok net */
+            background: linear-gradient(rgba(2, 6, 23, 0.4), rgba(2, 6, 23, 0.4)), 
                         url('Gemini_Generated_Image_xw1glixw1glixw1g.png');
             background-size: cover;
             background-position: center;
-            z-index: -1;
+            z-index: -2;
         }
 
-        /* 3. ELEKTRİK ÇARPMASI EFEKTİ */
+        /* ELEKTRİK EFEKTİ - TIKLAMAYI ENGELLEMEMESİ İÇİN pointer-events: none eklendi */
         #intro-overlay {
             position: fixed;
             top: 0; left: 0;
@@ -44,17 +44,17 @@
             justify-content: center;
             align-items: center;
             animation: flashOut 1.2s forwards;
-            pointer-events: none;
+            pointer-events: none; /* Tıklamayı asla engellemez */
         }
 
         @keyframes flashOut {
-            0% { opacity: 1; background: #fff; }
+            0% { opacity: 1; }
             15% { opacity: 0.8; background: var(--accent-blue); }
             30% { opacity: 1; background: #000; }
             100% { opacity: 0; visibility: hidden; }
         }
 
-        /* 4. SOL MENÜ (SIDEBAR) */
+        /* SIDEBAR - TIKLANABİLİRLİK İÇİN Z-INDEX ARTIRILDI */
         .sidebar {
             width: 260px;
             height: 100vh;
@@ -63,17 +63,9 @@
             left: 0; top: 0;
             display: flex;
             flex-direction: column;
-            border-right: 1px solid rgba(59, 130, 246, 0.2);
+            border-right: 1px solid rgba(59, 130, 246, 0.3);
             padding-top: 40px;
-            z-index: 100;
-        }
-
-        .sidebar h3 {
-            text-align: center;
-            letter-spacing: 4px;
-            margin-bottom: 40px;
-            color: white;
-            font-size: 1.2rem;
+            z-index: 1000; /* En üst katmana çıkarıldı */
         }
 
         .menu-btn {
@@ -87,63 +79,49 @@
             text-align: left;
             font-size: 1rem;
             border-left: 4px solid transparent;
-            outline: none;
+            z-index: 1001; /* Butonlara ekstra öncelik */
         }
 
         .menu-btn:hover, .menu-btn.active {
             color: white;
-            background: rgba(59, 130, 246, 0.1);
+            background: rgba(59, 130, 246, 0.2);
             border-left: 4px solid var(--accent-blue);
         }
 
-        /* 5. İÇERİK ALANI */
+        /* İÇERİK ALANI - RESMİ KAPATMAMAK İÇİN SAĞA HİZALANDI VE KÜÇÜLTÜLDÜ */
         .main-view {
             margin-left: 260px;
             height: 100vh;
             display: flex;
-            justify-content: center;
+            justify-content: flex-start; /* Sola (menünün yanına) yaslandı */
             align-items: center;
-            padding: 40px;
+            padding-left: 60px;
             box-sizing: border-box;
+            z-index: 10;
         }
 
-        /* SEKME GEÇİŞ MANTIĞI */
         .tab-content {
-            display: none; /* Varsayılan olarak her şey gizli */
+            display: none;
             width: 100%;
-            max-width: 900px;
+            max-width: 600px; /* Kart küçültüldü, resim daha çok görünecek */
             animation: fadeIn 0.5s ease;
         }
 
-        .tab-content.active {
-            display: block; /* Sadece aktif olan görünür */
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        .tab-content.active { display: block; }
 
         .glass-card {
             background: var(--glass-card);
-            padding: 50px;
-            border-radius: 20px;
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255,255,255,0.05);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            padding: 40px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
-        h2 { color: var(--accent-blue); font-size: 2.5rem; margin-top: 0; }
-
-        /* YETKİNLİK BARLARI */
-        .skill { margin: 20px 0; }
-        .bar-bg { background: rgba(255,255,255,0.1); height: 10px; border-radius: 5px; margin-top: 8px; }
-        .bar-fill { background: var(--accent-blue); height: 100%; border-radius: 5px; }
+        h2 { color: var(--accent-blue); margin-top: 0; }
 
         @media (max-width: 768px) {
             .sidebar { width: 100%; height: auto; position: relative; }
-            .main-view { margin-left: 0; }
-            body { overflow: auto; }
+            .main-view { margin-left: 0; padding: 20px; }
         }
     </style>
 </head>
@@ -152,11 +130,11 @@
     <div class="bg-fixed"></div>
 
     <div id="intro-overlay">
-        <h1 style="color: #020617; font-family: monospace; letter-spacing: 8px;">SYSTEM ONLINE</h1>
+        <h1 style="color: #020617; font-family: monospace;">POWER ON...</h1>
     </div>
 
     <nav class="sidebar">
-        <h3>KAAN ERSEN</h3>
+        <h3 style="text-align:center; color:white;">KAAN ERSEN</h3>
         <button class="menu-btn active" onclick="openTab(event, 'hakkimda')">HAKKIMDA</button>
         <button class="menu-btn" onclick="openTab(event, 'projeler')">PROJELER</button>
         <button class="menu-btn" onclick="openTab(event, 'yetkinlikler')">YETKİNLİKLER</button>
@@ -164,33 +142,50 @@
     </nav>
 
     <main class="main-view">
-        
         <div id="hakkimda" class="tab-content active">
             <div class="glass-card">
                 <h2>Hakkımda</h2>
-                <p style="font-size: 1.2rem; line-height: 1.8;">
-                    Elektrik-Elektronik Mühendisliği öğrencisiyim. Gömülü sistemler, güç elektroniği ve endüstriyel tasarım süreçlerine odaklanıyorum. Mühendislik problemlerine gerçekçi ve verimli çözümler üretmeyi hedefliyorum.
-                </p>
-                <button style="margin-top:20px; padding:12px 25px; background:var(--accent-blue); border:none; color:white; border-radius:8px; font-weight:bold; cursor:pointer;">ÖZGEÇMİŞİ GÖR</button>
+                <p>Elektrik-Elektronik Mühendisi adayıyım. Özellikle AutoCAD ile proje tasarımı ve MATLAB simülasyonları üzerine çalışıyorum.</p>
             </div>
         </div>
 
         <div id="projeler" class="tab-content">
             <div class="glass-card">
                 <h2>Projeler</h2>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                    <div style="padding:20px; background:rgba(255,255,255,0.03); border-radius:10px; border:1px solid rgba(59,130,246,0.2);">
-                        <h4 style="margin:0; color:var(--accent-blue);">AutoCAD Tasarımları</h4>
-                        <p style="font-size:0.9rem;">Elektrik tesisat ve pano montaj projeleri.</p>
-                    </div>
-                    <div style="padding:20px; background:rgba(255,255,255,0.03); border-radius:10px; border:1px solid rgba(59,130,246,0.2);">
-                        <h4 style="margin:0; color:var(--accent-blue);">Gömülü Sistemler</h4>
-                        <p style="font-size:0.9rem;">Arduino ve STM32 tabanlı kontrol devreleri.</p>
-                    </div>
-                </div>
+                <p>AutoCAD pano tasarımı ve STM32 gömülü yazılım projelerimi burada sergileyeceğim.</p>
             </div>
         </div>
 
         <div id="yetkinlikler" class="tab-content">
             <div class="glass-card">
-                <h2>Yet
+                <h2>Yetkinlikler</h2>
+                <p>AutoCAD, MATLAB/Simulink ve Proteus simülasyon yetkinliklerimi kapsar.</p>
+            </div>
+        </div>
+
+        <div id="iletisim" class="tab-content">
+            <div class="glass-card">
+                <h2>İletişim</h2>
+                <p>İletişim: kaanersen@example.com</p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, menuBtn;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            menuBtn = document.getElementsByClassName("menu-btn");
+            for (i = 0; i < menuBtn.length; i++) {
+                menuBtn[i].classList.remove("active");
+            }
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
+
+</body>
+</html>

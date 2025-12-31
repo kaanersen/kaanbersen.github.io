@@ -9,6 +9,7 @@
             --bg-deep: #020617;
             --sidebar-bg: rgba(15, 23, 42, 0.95);
             --accent-blue: #3b82f6;
+            --neon-pink: #d946ef; /* Neon efekti için yeni renk */
             --glass-card: rgba(15, 23, 42, 0.7);
         }
 
@@ -53,18 +54,17 @@
             100% { opacity: 0; visibility: hidden; }
         }
 
-        /* --- YENİ ÖZELLİK: MENÜ BUTONU (HAMBURGER) --- */
+        /* MENÜ BUTONU (HAMBURGER) */
         .toggle-btn {
             position: fixed;
-            top: 20px;
-            left: 20px;
+            top: 20px; left: 20px;
             background: var(--glass-card);
             color: var(--accent-blue);
             border: 1px solid rgba(59, 130, 246, 0.3);
             padding: 10px 15px;
             border-radius: 8px;
             cursor: pointer;
-            z-index: 2000; /* Her şeyin üstünde */
+            z-index: 2000;
             font-size: 1.5rem;
             backdrop-filter: blur(5px);
             transition: 0.3s;
@@ -76,26 +76,48 @@
             box-shadow: 0 0 15px var(--accent-blue);
         }
 
-        /* --- SIDEBAR (ARTIK GİZLİ BAŞLIYOR) --- */
+        /* SIDEBAR */
         .sidebar {
             width: 260px;
             height: 100vh;
             background: var(--sidebar-bg);
             position: fixed;
-            left: -270px; /* EKRANIN DIŞINDA GİZLİ */
+            left: -270px; /* Gizli */
             top: 0;
             display: flex;
             flex-direction: column;
             border-right: 1px solid rgba(59, 130, 246, 0.3);
-            padding-top: 60px; /* Buton için yer açtık */
+            padding-top: 60px;
             z-index: 1000;
-            transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Kayma efekti */
+            transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 10px 0 30px rgba(0,0,0,0.5);
         }
 
-        /* JS ile bu sınıf eklenince menü içeri girecek */
-        .sidebar.active {
-            left: 0; 
+        .sidebar.active { left: 0; }
+
+        /* YENİ ÖZELLİK: GLITCH EFEKTİ (İSİM İÇİN) */
+        .glitch-name {
+            text-align: center; 
+            color: white; 
+            margin-bottom: 30px; 
+            letter-spacing: 2px;
+            position: relative;
+            cursor: default;
+        }
+
+        .glitch-name:hover {
+            animation: glitch-anim 0.3s infinite;
+            color: var(--neon-pink);
+            text-shadow: 2px 2px var(--accent-blue), -2px -2px #ff00de;
+        }
+
+        @keyframes glitch-anim {
+            0% { transform: translate(0) }
+            20% { transform: translate(-2px, 2px) }
+            40% { transform: translate(-2px, -2px) }
+            60% { transform: translate(2px, 2px) }
+            80% { transform: translate(2px, -2px) }
+            100% { transform: translate(0) }
         }
 
         .menu-btn {
@@ -117,26 +139,19 @@
             border-left: 4px solid var(--accent-blue);
         }
 
-        /* İÇERİK ALANI (ARTIK ORTALI) */
+        /* İÇERİK ALANI */
         .main-view {
-            width: 100%; /* Tam genişlik */
-            height: 100vh;
+            width: 100%; height: 100vh;
             display: flex;
-            justify-content: center; /* Ortala */
-            align-items: center;
+            justify-content: center; align-items: center;
             padding: 20px;
             box-sizing: border-box;
             z-index: 10;
-            transition: 0.4s;
         }
-
-        /* Menü açılınca içeriği hafif sağa itmek istersen (opsiyonel, şu an overlay yaptık) */
-        /* .sidebar-open .main-view { margin-left: 260px; } */
 
         .tab-content {
             display: none;
-            width: 100%;
-            max-width: 700px; /* Kart biraz daha genişletildi */
+            width: 100%; max-width: 700px;
             animation: fadeIn 0.5s ease;
         }
 
@@ -147,6 +162,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* YENİ ÖZELLİK: NEON PARLAMA EFEKTİ (KARTLAR İÇİN) */
         .glass-card {
             background: var(--glass-card);
             padding: 50px;
@@ -154,9 +170,29 @@
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255,255,255,0.1);
             box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            transition: 0.3s ease; /* Yumuşak geçiş */
+        }
+
+        .glass-card:hover {
+            border-color: rgba(255,255,255,0.5);
+            /* Neon Glow: Mavi ve Pembe karışımı */
+            box-shadow: 0 0 20px var(--accent-blue), 0 0 40px var(--neon-pink);
+            transform: translateY(-5px); /* Hafif yukarı kalkar */
         }
 
         h2 { color: var(--accent-blue); margin-top: 0; font-size: 2rem; border-bottom: 2px solid rgba(59,130,246,0.3); padding-bottom: 10px; display: inline-block;}
+
+        /* YENİ ÖZELLİK: SİSTEM SAATİ */
+        .system-clock {
+            margin-top: auto; 
+            padding: 15px; 
+            background: rgba(0,0,0,0.4); 
+            text-align: center;
+            font-family: 'Courier New', monospace; /* Kod görünümü */
+            color: var(--accent-blue);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(59,130,246,0.2);
+        }
 
         @media (max-width: 768px) {
             .glass-card { padding: 25px; }
@@ -174,14 +210,15 @@
     <button class="toggle-btn" onclick="toggleMenu()">☰ MENU</button>
 
     <nav class="sidebar" id="mySidebar">
-        <h3 style="text-align:center; color:white; margin-bottom: 30px; letter-spacing: 2px;">KAAN ERSEN</h3>
+        <h3 class="glitch-name">KAAN ERSEN</h3>
+        
         <button class="menu-btn active" onclick="openTab(event, 'hakkimda')">HAKKIMDA</button>
         <button class="menu-btn" onclick="openTab(event, 'projeler')">PROJELER</button>
         <button class="menu-btn" onclick="openTab(event, 'yetkinlikler')">YETKİNLİKLER</button>
         <button class="menu-btn" onclick="openTab(event, 'iletisim')">İLETİŞİM</button>
         
-        <div style="margin-top: auto; padding: 20px; font-size: 0.8rem; color: #64748b; text-align: center;">
-            v2.0 System Ready
+        <div class="system-clock" id="clock-display">
+            SYS.TIME: --:--:--
         </div>
     </nav>
 
@@ -228,14 +265,11 @@
     </main>
 
     <script>
-        // MENÜ AÇIP KAPATMA FONKSİYONU
+        // MENÜ AÇMA/KAPAMA
         function toggleMenu() {
             const sidebar = document.getElementById("mySidebar");
             const btn = document.querySelector(".toggle-btn");
-            
             sidebar.classList.toggle("active");
-
-            // Buton ikonunu değiştirme (☰ <-> X)
             if (sidebar.classList.contains("active")) {
                 btn.innerHTML = "✕ KAPAT";
             } else {
@@ -243,29 +277,30 @@
             }
         }
 
-        // SEKME GEÇİŞİ (Eski kodun aynısı, ekstra olarak mobilde menüyü kapatır)
+        // SEKME GEÇİŞİ
         function openTab(evt, tabName) {
             var i, tabcontent, menuBtn;
-            
-            // Tüm içerikleri gizle
             tabcontent = document.getElementsByClassName("tab-content");
             for (i = 0; i < tabcontent.length; i++) {
                 tabcontent[i].classList.remove("active");
             }
-            
-            // Butonların aktifliğini kaldır
             menuBtn = document.getElementsByClassName("menu-btn");
             for (i = 0; i < menuBtn.length; i++) {
                 menuBtn[i].classList.remove("active");
             }
-            
-            // Seçileni aç
             document.getElementById(tabName).classList.add("active");
             evt.currentTarget.classList.add("active");
-
-            // Bir şeye tıkladıktan sonra menüyü otomatik kapat (Kullanım kolaylığı)
-            toggleMenu(); 
+            toggleMenu(); // Menü kapansın
         }
+
+        // SİSTEM SAATİ FONKSİYONU
+        function updateClock() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('tr-TR');
+            document.getElementById('clock-display').innerText = "SYS.TIME: " + timeString;
+        }
+        setInterval(updateClock, 1000); // Her 1 saniyede güncelle
+        updateClock(); // İlk açılışta hemen göster
     </script>
 
 </body>

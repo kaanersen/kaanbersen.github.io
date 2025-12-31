@@ -3,212 +3,194 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kaan Ersen | Portfolyo</title>
+    <title>Portfolyo | Kaan Ersen</title>
     <style>
-        /* 1. ANA TEMA VE RENKLER */
+        /* 1. RENK VE TEMA AYARLARI */
         :root {
-            --primary-dark: #020617;
+            --bg-deep: #020617;
+            --sidebar-bg: rgba(15, 23, 42, 0.98);
             --accent-blue: #3b82f6;
-            --glass: rgba(15, 23, 42, 0.85);
+            --glass-card: rgba(15, 23, 42, 0.8);
         }
 
         body, html {
             margin: 0; padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', sans-serif;
             color: #f1f5f9;
-            scroll-behavior: smooth;
-            overflow-x: hidden;
+            height: 100vh;
+            overflow: hidden; /* KAYDIRMAYI TAMAMEN KAPATTIK */
         }
 
-        /* 2. SENİN GÖRSELİN - ARKA PLAN */
-        .background-fixed {
+        /* 2. ARKA PLAN GÖRSELİN */
+        .bg-fixed {
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            /* Senin yüklediğin o uzun isimli profesyonel görsel */
-            background-image: linear-gradient(rgba(2, 6, 23, 0.8), rgba(2, 6, 23, 0.8)), 
-                              url('Gemini_Generated_Image_xw1glixw1glixw1glixw1g.png');
+            background: linear-gradient(rgba(2, 6, 23, 0.8), rgba(2, 6, 23, 0.8)), 
+                        url('Gemini_Generated_Image_xw1glixw1glixw1g.png');
             background-size: cover;
             background-position: center;
             z-index: -1;
         }
 
-        /* 3. ELEKTRİK ÇARPMASI / AÇILIŞ EFEKTİ */
-        #flash-intro {
+        /* 3. ELEKTRİK ÇARPMASI EFEKTİ */
+        #intro-overlay {
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
             background: #fff;
-            z-index: 10000;
+            z-index: 9999;
             display: flex;
             justify-content: center;
             align-items: center;
-            animation: electricity 1.2s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+            animation: flashOut 1.2s forwards;
             pointer-events: none;
         }
 
-        @keyframes electricity {
+        @keyframes flashOut {
             0% { opacity: 1; background: #fff; }
-            15% { opacity: 0.8; background: #3b82f6; }
-            20% { opacity: 1; background: #fff; }
-            30% { opacity: 0.6; background: #000; }
+            15% { opacity: 0.8; background: var(--accent-blue); }
+            30% { opacity: 1; background: #000; }
             100% { opacity: 0; visibility: hidden; }
         }
 
-        /* 4. SOL YAN MENÜ (SIDEBAR) */
+        /* 4. SOL MENÜ (SIDEBAR) */
         .sidebar {
-            width: 250px;
+            width: 260px;
             height: 100vh;
-            background: rgba(2, 6, 23, 0.95);
+            background: var(--sidebar-bg);
             position: fixed;
             left: 0; top: 0;
             display: flex;
             flex-direction: column;
             border-right: 1px solid rgba(59, 130, 246, 0.2);
-            padding-top: 60px;
+            padding-top: 40px;
             z-index: 100;
         }
 
         .sidebar h3 {
             text-align: center;
+            letter-spacing: 4px;
+            margin-bottom: 40px;
             color: white;
-            letter-spacing: 3px;
-            margin-bottom: 50px;
-            font-size: 1.5rem;
+            font-size: 1.2rem;
         }
 
-        .sidebar a {
-            padding: 20px 35px;
-            text-decoration: none;
+        .menu-btn {
+            padding: 18px 30px;
+            cursor: pointer;
             color: #94a3b8;
             font-weight: 600;
-            transition: 0.4s;
+            transition: 0.3s;
+            border: none;
+            background: none;
+            text-align: left;
+            font-size: 1rem;
             border-left: 4px solid transparent;
+            outline: none;
         }
 
-        .sidebar a:hover {
+        .menu-btn:hover, .menu-btn.active {
             color: white;
             background: rgba(59, 130, 246, 0.1);
             border-left: 4px solid var(--accent-blue);
         }
 
-        /* 5. İÇERİK ALANLARI */
-        .container { margin-left: 250px; padding: 0 80px; }
-        
-        section {
-            min-height: 100vh;
+        /* 5. İÇERİK ALANI */
+        .main-view {
+            margin-left: 260px;
+            height: 100vh;
             display: flex;
-            flex-direction: column;
             justify-content: center;
-            padding: 100px 0;
+            align-items: center;
+            padding: 40px;
+            box-sizing: border-box;
         }
 
-        h2 { font-size: 3.5rem; color: var(--accent-blue); margin-bottom: 40px; }
+        /* SEKME GEÇİŞ MANTIĞI */
+        .tab-content {
+            display: none; /* Varsayılan olarak her şey gizli */
+            width: 100%;
+            max-width: 900px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block; /* Sadece aktif olan görünür */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
         .glass-card {
-            background: var(--glass);
+            background: var(--glass-card);
             padding: 50px;
             border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.05);
-            max-width: 900px;
             backdrop-filter: blur(15px);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.05);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
         }
 
-        /* YETKİNLİK ÇUBUKLARI */
-        .skill { margin-bottom: 25px; }
-        .skill-name { margin-bottom: 8px; font-weight: bold; display: flex; justify-content: space-between; }
-        .bar-bg { background: rgba(255,255,255,0.1); height: 12px; border-radius: 6px; overflow: hidden; }
-        .bar-fill { background: var(--accent-blue); height: 100%; border-radius: 6px; }
+        h2 { color: var(--accent-blue); font-size: 2.5rem; margin-top: 0; }
 
-        @media (max-width: 992px) {
+        /* YETKİNLİK BARLARI */
+        .skill { margin: 20px 0; }
+        .bar-bg { background: rgba(255,255,255,0.1); height: 10px; border-radius: 5px; margin-top: 8px; }
+        .bar-fill { background: var(--accent-blue); height: 100%; border-radius: 5px; }
+
+        @media (max-width: 768px) {
             .sidebar { width: 100%; height: auto; position: relative; }
-            .container { margin-left: 0; padding: 20px; }
+            .main-view { margin-left: 0; }
+            body { overflow: auto; }
         }
     </style>
 </head>
 <body>
 
-    <div class="background-fixed"></div>
+    <div class="bg-fixed"></div>
 
-    <div id="flash-intro">
-        <h1 style="color: #020617; font-family: monospace; letter-spacing: 10px;">POWER ON...</h1>
+    <div id="intro-overlay">
+        <h1 style="color: #020617; font-family: monospace; letter-spacing: 8px;">SYSTEM ONLINE</h1>
     </div>
 
-    <div class="sidebar">
+    <nav class="sidebar">
         <h3>KAAN ERSEN</h3>
-        <a href="#hakkimda">HAKKIMDA</a>
-        <a href="#projeler">PROJELER</a>
-        <a href="#yetkinlikler">YETKİNLİK</a>
-        <a href="#iletisim">İLETİŞİM</a>
-    </div>
+        <button class="menu-btn active" onclick="openTab(event, 'hakkimda')">HAKKIMDA</button>
+        <button class="menu-btn" onclick="openTab(event, 'projeler')">PROJELER</button>
+        <button class="menu-btn" onclick="openTab(event, 'yetkinlikler')">YETKİNLİKLER</button>
+        <button class="menu-btn" onclick="openTab(event, 'iletisim')">İLETİŞİM</button>
+    </nav>
 
-    <div class="container">
+    <main class="main-view">
         
-        <section id="hakkimda">
-            <h2>Hakkımda.</h2>
+        <div id="hakkimda" class="tab-content active">
             <div class="glass-card">
-                <p style="font-size: 1.3rem; line-height: 1.8;">
-                    Elektrik-Elektronik Mühendisi olarak teknik analiz ve yenilikçi çözümler üzerine odaklanıyorum. Mühendislik disiplinini modern teknolojiyle birleştirerek karmaşık sistemleri optimize ediyorum.
+                <h2>Hakkımda</h2>
+                <p style="font-size: 1.2rem; line-height: 1.8;">
+                    Elektrik-Elektronik Mühendisliği öğrencisiyim. Gömülü sistemler, güç elektroniği ve endüstriyel tasarım süreçlerine odaklanıyorum. Mühendislik problemlerine gerçekçi ve verimli çözümler üretmeyi hedefliyorum.
                 </p>
-                <div style="margin-top: 40px;">
-                    <a href="#" style="background: var(--accent-blue); color: white; padding: 15px 35px; border-radius: 10px; text-decoration: none; font-weight: bold; display: inline-block;">PDF ÖZGEÇMİŞ</a>
-                </div>
+                <button style="margin-top:20px; padding:12px 25px; background:var(--accent-blue); border:none; color:white; border-radius:8px; font-weight:bold; cursor:pointer;">ÖZGEÇMİŞİ GÖR</button>
             </div>
-        </section>
+        </div>
 
-        <section id="projeler">
-            <h2>Projeler.</h2>
+        <div id="projeler" class="tab-content">
             <div class="glass-card">
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px;">
-                    <div style="background: rgba(255,255,255,0.03); padding: 30px; border-radius: 15px; border: 1px solid rgba(59, 130, 246, 0.2);">
-                        <h3 style="color: var(--accent-blue);">Gömülü Sistemler</h3>
-                        <p>Mikrokontrolcü tabanlı donanım tasarımları ve düşük seviyeli yazılım geliştirme süreçleri.</p>
+                <h2>Projeler</h2>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div style="padding:20px; background:rgba(255,255,255,0.03); border-radius:10px; border:1px solid rgba(59,130,246,0.2);">
+                        <h4 style="margin:0; color:var(--accent-blue);">AutoCAD Tasarımları</h4>
+                        <p style="font-size:0.9rem;">Elektrik tesisat ve pano montaj projeleri.</p>
                     </div>
-                    <div style="background: rgba(255,255,255,0.03); padding: 30px; border-radius: 15px; border: 1px solid rgba(59, 130, 246, 0.2);">
-                        <h3 style="color: var(--accent-blue);">Teknik Çizim & Analiz</h3>
-                        <p>AutoCAD ve MATLAB kullanarak elektrik tesisat projeleri ve sistem simülasyonları.</p>
+                    <div style="padding:20px; background:rgba(255,255,255,0.03); border-radius:10px; border:1px solid rgba(59,130,246,0.2);">
+                        <h4 style="margin:0; color:var(--accent-blue);">Gömülü Sistemler</h4>
+                        <p style="font-size:0.9rem;">Arduino ve STM32 tabanlı kontrol devreleri.</p>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <section id="yetkinlikler">
-            <h2>Yetkinlikler.</h2>
+        <div id="yetkinlikler" class="tab-content">
             <div class="glass-card">
-                <div class="skill">
-                    <div class="skill-name"><span>AutoCAD & Elektrik Proje</span><span>90%</span></div>
-                    <div class="bar-bg"><div class="bar-fill" style="width: 90%;"></div></div>
-                </div>
-                <div class="skill">
-                    <div class="skill-name"><span>MATLAB & Simulink</span><span>80%</span></div>
-                    <div class="bar-bg"><div class="bar-fill" style="width: 80%;"></div></div>
-                </div>
-                <div class="skill">
-                    <div class="skill-name"><span>C / C++ (Gömülü Yazılım)</span><span>85%</span></div>
-                    <div class="bar-bg"><div class="bar-fill" style="width: 85%;"></div></div>
-                </div>
-                <div class="skill">
-                    <div class="skill-name"><span>Devre Analizi & Ölçüm</span><span>95%</span></div>
-                    <div class="bar-bg"><div class="bar-fill" style="width: 95%;"></div></div>
-                </div>
-            </div>
-        </section>
-
-        <section id="iletisim">
-            <h2>İletişim.</h2>
-            <div class="glass-card" style="text-align: center;">
-                <p style="font-size: 1.5rem; font-weight: bold; margin-bottom: 40px;">Bana ulaşmak için aşağıdaki kanalları kullanabilirsiniz.</p>
-                <div style="display: flex; justify-content: space-around; flex-wrap: wrap;">
-                    <p style="font-size: 1.1rem;">📧 <span style="color: var(--accent-blue);">kaanersen@example.com</span></p>
-                    <p style="font-size: 1.1rem;">🔗 <span style="color: var(--accent-blue);">linkedin.com/in/kaanersen</span></p>
-                </div>
-                <hr style="margin: 50px 0; border: 0.5px solid rgba(255,255,255,0.1);">
-                <p style="opacity: 0.5;">© 2025 Kaan Ersen. Tüm Hakları Saklıdır.</p>
-            </div>
-        </section>
-
-    </div>
-
-</body>
-</html>
+                <h2>Yet

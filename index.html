@@ -7,7 +7,7 @@
     <style>
         :root {
             --bg-deep: #020617;
-            --sidebar-bg: rgba(15, 23, 42, 0.9);
+            --sidebar-bg: rgba(15, 23, 42, 0.95);
             --accent-blue: #3b82f6;
             --glass-card: rgba(15, 23, 42, 0.7);
         }
@@ -20,20 +20,19 @@
             overflow: hidden;
         }
 
-        /* --- GÜNCELLEME BURADA: Yeni Resim --- */
+        /* ARKA PLAN */
         .bg-fixed {
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            /* Resim adı güncellendi */
             background: linear-gradient(rgba(2, 6, 23, 0.4), rgba(2, 6, 23, 0.4)), 
                         url('manuel-CANL3bzp6wU-unsplash.jpg');
             background-size: cover;
             background-position: center;
             z-index: -2;
         }
-        /* ------------------------------------ */
 
+        /* AÇILIŞ EFEKTİ */
         #intro-overlay {
             position: fixed;
             top: 0; left: 0;
@@ -54,17 +53,49 @@
             100% { opacity: 0; visibility: hidden; }
         }
 
+        /* --- YENİ ÖZELLİK: MENÜ BUTONU (HAMBURGER) --- */
+        .toggle-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: var(--glass-card);
+            color: var(--accent-blue);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            z-index: 2000; /* Her şeyin üstünde */
+            font-size: 1.5rem;
+            backdrop-filter: blur(5px);
+            transition: 0.3s;
+        }
+        
+        .toggle-btn:hover {
+            background: var(--accent-blue);
+            color: white;
+            box-shadow: 0 0 15px var(--accent-blue);
+        }
+
+        /* --- SIDEBAR (ARTIK GİZLİ BAŞLIYOR) --- */
         .sidebar {
             width: 260px;
             height: 100vh;
             background: var(--sidebar-bg);
             position: fixed;
-            left: 0; top: 0;
+            left: -270px; /* EKRANIN DIŞINDA GİZLİ */
+            top: 0;
             display: flex;
             flex-direction: column;
             border-right: 1px solid rgba(59, 130, 246, 0.3);
-            padding-top: 40px;
+            padding-top: 60px; /* Buton için yer açtık */
             z-index: 1000;
+            transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Kayma efekti */
+            box-shadow: 10px 0 30px rgba(0,0,0,0.5);
+        }
+
+        /* JS ile bu sınıf eklenince menü içeri girecek */
+        .sidebar.active {
+            left: 0; 
         }
 
         .menu-btn {
@@ -78,7 +109,6 @@
             text-align: left;
             font-size: 1rem;
             border-left: 4px solid transparent;
-            z-index: 1001;
         }
 
         .menu-btn:hover, .menu-btn.active {
@@ -87,39 +117,49 @@
             border-left: 4px solid var(--accent-blue);
         }
 
+        /* İÇERİK ALANI (ARTIK ORTALI) */
         .main-view {
-            margin-left: 260px;
+            width: 100%; /* Tam genişlik */
             height: 100vh;
             display: flex;
-            justify-content: flex-start;
+            justify-content: center; /* Ortala */
             align-items: center;
-            padding-left: 60px;
+            padding: 20px;
             box-sizing: border-box;
             z-index: 10;
+            transition: 0.4s;
         }
+
+        /* Menü açılınca içeriği hafif sağa itmek istersen (opsiyonel, şu an overlay yaptık) */
+        /* .sidebar-open .main-view { margin-left: 260px; } */
 
         .tab-content {
             display: none;
             width: 100%;
-            max-width: 600px;
+            max-width: 700px; /* Kart biraz daha genişletildi */
             animation: fadeIn 0.5s ease;
         }
 
         .tab-content.active { display: block; }
 
-        .glass-card {
-            background: var(--glass-card);
-            padding: 40px;
-            border-radius: 15px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.1);
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        h2 { color: var(--accent-blue); margin-top: 0; }
+        .glass-card {
+            background: var(--glass-card);
+            padding: 50px;
+            border-radius: 15px;
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+        }
+
+        h2 { color: var(--accent-blue); margin-top: 0; font-size: 2rem; border-bottom: 2px solid rgba(59,130,246,0.3); padding-bottom: 10px; display: inline-block;}
 
         @media (max-width: 768px) {
-            .sidebar { width: 100%; height: auto; position: relative; }
-            .main-view { margin-left: 0; padding: 20px; }
+            .glass-card { padding: 25px; }
         }
     </style>
 </head>
@@ -128,60 +168,103 @@
     <div class="bg-fixed"></div>
 
     <div id="intro-overlay">
-        <h1 style="color: #020617; font-family: monospace;">POWER ON...</h1>
+        <h1 style="color: #020617; font-family: monospace;">SYSTEM LOADING...</h1>
     </div>
 
-    <nav class="sidebar">
-        <h3 style="text-align:center; color:white;">KAAN ERSEN</h3>
+    <button class="toggle-btn" onclick="toggleMenu()">☰ MENU</button>
+
+    <nav class="sidebar" id="mySidebar">
+        <h3 style="text-align:center; color:white; margin-bottom: 30px; letter-spacing: 2px;">KAAN ERSEN</h3>
         <button class="menu-btn active" onclick="openTab(event, 'hakkimda')">HAKKIMDA</button>
         <button class="menu-btn" onclick="openTab(event, 'projeler')">PROJELER</button>
         <button class="menu-btn" onclick="openTab(event, 'yetkinlikler')">YETKİNLİKLER</button>
         <button class="menu-btn" onclick="openTab(event, 'iletisim')">İLETİŞİM</button>
+        
+        <div style="margin-top: auto; padding: 20px; font-size: 0.8rem; color: #64748b; text-align: center;">
+            v2.0 System Ready
+        </div>
     </nav>
 
     <main class="main-view">
         <div id="hakkimda" class="tab-content active">
             <div class="glass-card">
                 <h2>Hakkımda</h2>
-                <p>Elektrik-Elektronik Mühendisi adayıyım. Özellikle AutoCAD ile proje tasarımı ve MATLAB simülasyonları üzerine çalışıyorum.</p>
+                <p style="font-size: 1.1rem; line-height: 1.8; margin-top: 20px;">
+                    Elektrik-Elektronik Mühendisi adayıyım. Özellikle AutoCAD ile proje tasarımı ve MATLAB simülasyonları üzerine çalışıyorum. Teknik detaylara hakim, çözüm odaklı bir yaklaşım benimsiyorum.
+                </p>
             </div>
         </div>
 
         <div id="projeler" class="tab-content">
             <div class="glass-card">
                 <h2>Projeler</h2>
-                <p>AutoCAD pano tasarımı ve STM32 gömülü yazılım projelerimi burada sergileyeceğim.</p>
+                <p style="margin-top: 20px;">AutoCAD pano tasarımı ve STM32 gömülü yazılım projelerimi burada sergileyeceğim.</p>
+                <div style="margin-top: 20px; padding: 15px; background: rgba(0,0,0,0.3); border-radius: 8px; border-left: 4px solid #3b82f6;">
+                    <h4 style="margin: 0; color: #fff;">STM32 Motor Kontrol</h4>
+                    <small style="color: #94a3b8;">Gömülü Sistemler</small>
+                </div>
             </div>
         </div>
 
         <div id="yetkinlikler" class="tab-content">
             <div class="glass-card">
                 <h2>Yetkinlikler</h2>
-                <p>AutoCAD, MATLAB/Simulink ve Proteus simülasyon yetkinliklerimi kapsar.</p>
+                <ul style="list-style: none; padding: 0; margin-top: 20px; line-height: 2;">
+                    <li>🔹 AutoCAD (İleri Seviye)</li>
+                    <li>🔹 MATLAB / Simulink</li>
+                    <li>🔹 Proteus (ISIS & ARES)</li>
+                    <li>🔹 C / C++ Gömülü Yazılım</li>
+                </ul>
             </div>
         </div>
 
         <div id="iletisim" class="tab-content">
             <div class="glass-card">
                 <h2>İletişim</h2>
-                <p>İletişim: kaanbersen@gmail.com</p>
+                <p style="margin-top: 20px; font-size: 1.2rem;">📩 kaanbersen@gmail.com</p>
+                <p style="color: #94a3b8;">Projeler ve iş birlikleri için iletişime geçebilirsiniz.</p>
             </div>
         </div>
     </main>
 
     <script>
+        // MENÜ AÇIP KAPATMA FONKSİYONU
+        function toggleMenu() {
+            const sidebar = document.getElementById("mySidebar");
+            const btn = document.querySelector(".toggle-btn");
+            
+            sidebar.classList.toggle("active");
+
+            // Buton ikonunu değiştirme (☰ <-> X)
+            if (sidebar.classList.contains("active")) {
+                btn.innerHTML = "✕ KAPAT";
+            } else {
+                btn.innerHTML = "☰ MENU";
+            }
+        }
+
+        // SEKME GEÇİŞİ (Eski kodun aynısı, ekstra olarak mobilde menüyü kapatır)
         function openTab(evt, tabName) {
             var i, tabcontent, menuBtn;
+            
+            // Tüm içerikleri gizle
             tabcontent = document.getElementsByClassName("tab-content");
             for (i = 0; i < tabcontent.length; i++) {
                 tabcontent[i].classList.remove("active");
             }
+            
+            // Butonların aktifliğini kaldır
             menuBtn = document.getElementsByClassName("menu-btn");
             for (i = 0; i < menuBtn.length; i++) {
                 menuBtn[i].classList.remove("active");
             }
+            
+            // Seçileni aç
             document.getElementById(tabName).classList.add("active");
             evt.currentTarget.classList.add("active");
+
+            // Bir şeye tıkladıktan sonra menüyü otomatik kapat (Kullanım kolaylığı)
+            toggleMenu(); 
         }
     </script>
 

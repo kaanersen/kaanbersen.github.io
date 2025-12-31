@@ -7,33 +7,35 @@
     <style>
         :root {
             --bg-deep: #020617;
-            --sidebar-bg: rgba(15, 23, 42, 0.9);
+            --sidebar-bg: rgba(15, 23, 42, 0.95);
             --accent-blue: #3b82f6;
-            --glass-card: rgba(15, 23, 42, 0.7); /* Kart şeffaflığı artırıldı */
+            --glass-card: rgba(15, 23, 42, 0.75);
+            --text-color: #f1f5f9;
         }
 
         body, html {
             margin: 0; padding: 0;
-            font-family: 'Inter', sans-serif;
-            color: #f1f5f9;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-color);
             height: 100vh;
             overflow: hidden;
+            /* 1. ÖZELLİK: CROSSHAIR (ARTI) İMLEÇ */
+            cursor: crosshair; 
         }
 
-        /* ARKA PLAN - GÖRÜNÜRLÜK ARTIRILDI */
+        /* ARKA PLAN */
         .bg-fixed {
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            /* 0.8 olan karartma 0.4'e çekildi, resim artık çok net */
-            background: linear-gradient(rgba(2, 6, 23, 0.4), rgba(2, 6, 23, 0.4)), 
+            background: linear-gradient(rgba(2, 6, 23, 0.5), rgba(2, 6, 23, 0.5)), 
                         url('Gemini_Generated_Image_xw1glixw1glixw1g.png');
             background-size: cover;
             background-position: center;
             z-index: -2;
         }
 
-        /* ELEKTRİK EFEKTİ - TIKLAMAYI ENGELLEMEMESİ İÇİN pointer-events: none eklendi */
+        /* ELEKTRİK EFEKTİ */
         #intro-overlay {
             position: fixed;
             top: 0; left: 0;
@@ -44,7 +46,7 @@
             justify-content: center;
             align-items: center;
             animation: flashOut 1.2s forwards;
-            pointer-events: none; /* Tıklamayı asla engellemez */
+            pointer-events: none;
         }
 
         @keyframes flashOut {
@@ -54,7 +56,7 @@
             100% { opacity: 0; visibility: hidden; }
         }
 
-        /* SIDEBAR - TIKLANABİLİRLİK İÇİN Z-INDEX ARTIRILDI */
+        /* SIDEBAR */
         .sidebar {
             width: 260px;
             height: 100vh;
@@ -65,12 +67,12 @@
             flex-direction: column;
             border-right: 1px solid rgba(59, 130, 246, 0.3);
             padding-top: 40px;
-            z-index: 1000; /* En üst katmana çıkarıldı */
+            z-index: 1000;
         }
 
         .menu-btn {
             padding: 18px 30px;
-            cursor: pointer;
+            cursor: crosshair; /* İmleç burada da crosshair olsun */
             color: #94a3b8;
             font-weight: 600;
             transition: 0.3s;
@@ -78,114 +80,4 @@
             background: none;
             text-align: left;
             font-size: 1rem;
-            border-left: 4px solid transparent;
-            z-index: 1001; /* Butonlara ekstra öncelik */
-        }
-
-        .menu-btn:hover, .menu-btn.active {
-            color: white;
-            background: rgba(59, 130, 246, 0.2);
-            border-left: 4px solid var(--accent-blue);
-        }
-
-        /* İÇERİK ALANI - RESMİ KAPATMAMAK İÇİN SAĞA HİZALANDI VE KÜÇÜLTÜLDÜ */
-        .main-view {
-            margin-left: 260px;
-            height: 100vh;
-            display: flex;
-            justify-content: flex-start; /* Sola (menünün yanına) yaslandı */
-            align-items: center;
-            padding-left: 60px;
-            box-sizing: border-box;
-            z-index: 10;
-        }
-
-        .tab-content {
-            display: none;
-            width: 100%;
-            max-width: 600px; /* Kart küçültüldü, resim daha çok görünecek */
-            animation: fadeIn 0.5s ease;
-        }
-
-        .tab-content.active { display: block; }
-
-        .glass-card {
-            background: var(--glass-card);
-            padding: 40px;
-            border-radius: 15px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        h2 { color: var(--accent-blue); margin-top: 0; }
-
-        @media (max-width: 768px) {
-            .sidebar { width: 100%; height: auto; position: relative; }
-            .main-view { margin-left: 0; padding: 20px; }
-        }
-    </style>
-</head>
-<body>
-
-    <div class="bg-fixed"></div>
-
-    <div id="intro-overlay">
-        <h1 style="color: #020617; font-family: monospace;">POWER ON...</h1>
-    </div>
-
-    <nav class="sidebar">
-        <h3 style="text-align:center; color:white;">KAAN ERSEN</h3>
-        <button class="menu-btn active" onclick="openTab(event, 'hakkimda')">HAKKIMDA</button>
-        <button class="menu-btn" onclick="openTab(event, 'projeler')">PROJELER</button>
-        <button class="menu-btn" onclick="openTab(event, 'yetkinlikler')">YETKİNLİKLER</button>
-        <button class="menu-btn" onclick="openTab(event, 'iletisim')">İLETİŞİM</button>
-    </nav>
-
-    <main class="main-view">
-        <div id="hakkimda" class="tab-content active">
-            <div class="glass-card">
-                <h2>Hakkımda</h2>
-                <p>Elektrik-Elektronik Mühendisi adayıyım. Özellikle AutoCAD ile proje tasarımı ve MATLAB simülasyonları üzerine çalışıyorum.</p>
-            </div>
-        </div>
-
-        <div id="projeler" class="tab-content">
-            <div class="glass-card">
-                <h2>Projeler</h2>
-                <p>AutoCAD pano tasarımı ve STM32 gömülü yazılım projelerimi burada sergileyeceğim.</p>
-            </div>
-        </div>
-
-        <div id="yetkinlikler" class="tab-content">
-            <div class="glass-card">
-                <h2>Yetkinlikler</h2>
-                <p>AutoCAD, MATLAB/Simulink ve Proteus simülasyon yetkinliklerimi kapsar.</p>
-            </div>
-        </div>
-
-        <div id="iletisim" class="tab-content">
-            <div class="glass-card">
-                <h2>İletişim</h2>
-                <p>İletişim: kaanersen@example.com</p>
-            </div>
-        </div>
-    </main>
-
-    <script>
-        function openTab(evt, tabName) {
-            var i, tabcontent, menuBtn;
-            tabcontent = document.getElementsByClassName("tab-content");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].classList.remove("active");
-            }
-            menuBtn = document.getElementsByClassName("menu-btn");
-            for (i = 0; i < menuBtn.length; i++) {
-                menuBtn[i].classList.remove("active");
-            }
-            document.getElementById(tabName).classList.add("active");
-            evt.currentTarget.classList.add("active");
-        }
-    </script>
-
-</body>
-</html>
+            border-left: 4

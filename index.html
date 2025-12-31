@@ -9,7 +9,7 @@
             --bg-deep: #020617;
             --sidebar-bg: rgba(15, 23, 42, 0.9);
             --accent-blue: #3b82f6;
-            --glass-card: rgba(15, 23, 42, 0.7); /* Kart şeffaflığı artırıldı */
+            --glass-card: rgba(15, 23, 42, 0.7);
         }
 
         body, html {
@@ -20,20 +20,20 @@
             overflow: hidden;
         }
 
-        /* ARKA PLAN - GÖRÜNÜRLÜK ARTIRILDI */
+        /* ARKA PLAN AYARI - bg2.png OLARAK GÜNCELLENDİ */
         .bg-fixed {
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            /* 0.8 olan karartma 0.4'e çekildi, resim artık çok net */
+            /* Vice City görseli canlı olduğu için karartmayı %40'ta bıraktım */
             background: linear-gradient(rgba(2, 6, 23, 0.4), rgba(2, 6, 23, 0.4)), 
-                        url('Gemini_Generated_Image_xw1glixw1glixw1g.png');
+                        url('bg2.png'); 
             background-size: cover;
             background-position: center;
             z-index: -2;
         }
 
-        /* ELEKTRİK EFEKTİ - TIKLAMAYI ENGELLEMEMESİ İÇİN pointer-events: none eklendi */
+        /* INTRO EFEKTİ */
         #intro-overlay {
             position: fixed;
             top: 0; left: 0;
@@ -44,7 +44,7 @@
             justify-content: center;
             align-items: center;
             animation: flashOut 1.2s forwards;
-            pointer-events: none; /* Tıklamayı asla engellemez */
+            pointer-events: none;
         }
 
         @keyframes flashOut {
@@ -54,7 +54,7 @@
             100% { opacity: 0; visibility: hidden; }
         }
 
-        /* SIDEBAR - TIKLANABİLİRLİK İÇİN Z-INDEX ARTIRILDI */
+        /* SIDEBAR */
         .sidebar {
             width: 260px;
             height: 100vh;
@@ -65,7 +65,7 @@
             flex-direction: column;
             border-right: 1px solid rgba(59, 130, 246, 0.3);
             padding-top: 40px;
-            z-index: 1000; /* En üst katmana çıkarıldı */
+            z-index: 1000;
         }
 
         .menu-btn {
@@ -79,7 +79,7 @@
             text-align: left;
             font-size: 1rem;
             border-left: 4px solid transparent;
-            z-index: 1001; /* Butonlara ekstra öncelik */
+            z-index: 1001;
         }
 
         .menu-btn:hover, .menu-btn.active {
@@ -88,12 +88,12 @@
             border-left: 4px solid var(--accent-blue);
         }
 
-        /* İÇERİK ALANI - RESMİ KAPATMAMAK İÇİN SAĞA HİZALANDI VE KÜÇÜLTÜLDÜ */
+        /* İÇERİK ALANI */
         .main-view {
             margin-left: 260px;
             height: 100vh;
             display: flex;
-            justify-content: flex-start; /* Sola (menünün yanına) yaslandı */
+            justify-content: flex-start;
             align-items: center;
             padding-left: 60px;
             box-sizing: border-box;
@@ -103,7 +103,7 @@
         .tab-content {
             display: none;
             width: 100%;
-            max-width: 600px; /* Kart küçültüldü, resim daha çok görünecek */
+            max-width: 600px;
             animation: fadeIn 0.5s ease;
         }
 

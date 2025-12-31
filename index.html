@@ -9,7 +9,7 @@
             --bg-deep: #020617;
             --sidebar-bg: rgba(15, 23, 42, 0.95);
             --accent-blue: #3b82f6;
-            --neon-pink: #d946ef; /* Neon efekti için yeni renk */
+            --neon-pink: #d946ef;
             --glass-card: rgba(15, 23, 42, 0.7);
         }
 
@@ -21,7 +21,7 @@
             overflow: hidden;
         }
 
-        /* ARKA PLAN */
+        /* ARKA PLAN - Senin yüklediğin manuel...jpg resmi */
         .bg-fixed {
             position: fixed;
             top: 0; left: 0;
@@ -76,13 +76,13 @@
             box-shadow: 0 0 15px var(--accent-blue);
         }
 
-        /* SIDEBAR */
+        /* SIDEBAR - GİZLİ BAŞLIYOR */
         .sidebar {
             width: 260px;
             height: 100vh;
             background: var(--sidebar-bg);
             position: fixed;
-            left: -270px; /* Gizli */
+            left: -270px;
             top: 0;
             display: flex;
             flex-direction: column;
@@ -95,7 +95,7 @@
 
         .sidebar.active { left: 0; }
 
-        /* YENİ ÖZELLİK: GLITCH EFEKTİ (İSİM İÇİN) */
+        /* GLITCH EFEKTİ (İSİM) */
         .glitch-name {
             text-align: center; 
             color: white; 
@@ -162,7 +162,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* YENİ ÖZELLİK: NEON PARLAMA EFEKTİ (KARTLAR İÇİN) */
+        /* NEON PARLAMA EFEKTİ (KARTLAR) */
         .glass-card {
             background: var(--glass-card);
             padding: 50px;
@@ -170,25 +170,24 @@
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255,255,255,0.1);
             box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-            transition: 0.3s ease; /* Yumuşak geçiş */
+            transition: 0.3s ease;
         }
 
         .glass-card:hover {
             border-color: rgba(255,255,255,0.5);
-            /* Neon Glow: Mavi ve Pembe karışımı */
             box-shadow: 0 0 20px var(--accent-blue), 0 0 40px var(--neon-pink);
-            transform: translateY(-5px); /* Hafif yukarı kalkar */
+            transform: translateY(-5px);
         }
 
         h2 { color: var(--accent-blue); margin-top: 0; font-size: 2rem; border-bottom: 2px solid rgba(59,130,246,0.3); padding-bottom: 10px; display: inline-block;}
 
-        /* YENİ ÖZELLİK: SİSTEM SAATİ */
+        /* SİSTEM SAATİ */
         .system-clock {
             margin-top: auto; 
             padding: 15px; 
             background: rgba(0,0,0,0.4); 
             text-align: center;
-            font-family: 'Courier New', monospace; /* Kod görünümü */
+            font-family: 'Courier New', monospace;
             color: var(--accent-blue);
             font-size: 0.9rem;
             border-top: 1px solid rgba(59,130,246,0.2);
@@ -246,11 +245,11 @@
         <div id="yetkinlikler" class="tab-content">
             <div class="glass-card">
                 <h2>Yetkinlikler</h2>
-                <ul style="list-style: none; padding: 0; margin-top: 20px; line-height: 2;">
-                    <li>🔹 AutoCAD (İleri Seviye)</li>
-                    <li>🔹 MATLAB / Simulink</li>
-                    <li>🔹 Proteus (ISIS & ARES)</li>
-                    <li>🔹 C / C++ Gömülü Yazılım</li>
+                <ul style="list-style: none; padding: 0; margin-top: 20px; line-height: 2.2;">
+                    <li>🔹 <strong>AutoCAD:</strong> Elektrik Proje & Pano Çizimi</li>
+                    <li>🔹 <strong>KiCad:</strong> Profesyonel PCB Tasarımı</li>
+                    <li>🔹 <strong>Proteus (ISIS & ARES):</strong> Devre Simülasyonu</li>
+                    <li>🔹 <strong>Microsoft Office:</strong> Word, Excel, PowerPoint</li>
                 </ul>
             </div>
         </div>
@@ -290,17 +289,17 @@
             }
             document.getElementById(tabName).classList.add("active");
             evt.currentTarget.classList.add("active");
-            toggleMenu(); // Menü kapansın
+            toggleMenu(); 
         }
 
-        // SİSTEM SAATİ FONKSİYONU
+        // SİSTEM SAATİ
         function updateClock() {
             const now = new Date();
             const timeString = now.toLocaleTimeString('tr-TR');
             document.getElementById('clock-display').innerText = "SYS.TIME: " + timeString;
         }
-        setInterval(updateClock, 1000); // Her 1 saniyede güncelle
-        updateClock(); // İlk açılışta hemen göster
+        setInterval(updateClock, 1000); 
+        updateClock(); 
     </script>
 
 </body>

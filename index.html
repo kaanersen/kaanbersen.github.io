@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolyo | Kaan Ersen</title>
+    <title>Kaan Ersen</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -12,20 +12,20 @@
             --sidebar-bg: rgba(15, 23, 42, 0.95);
             --accent-blue: #3b82f6;
             --neon-pink: #d946ef;
-            --glass-card: rgba(15, 23, 42, 0.85); /* Okunabilirlik için biraz daha koyu */
+            --glass-card: rgba(15, 23, 42, 0.85);
             --success-green: #10b981;
             --warning-yellow: #f59e0b;
         }
 
         body, html {
             margin: 0; padding: 0;
-            font-family: 'Segoe UI', 'Inter', sans-serif; /* Fontu biraz daha teknik yaptık */
+            font-family: 'Segoe UI', 'Inter', sans-serif;
             color: #f1f5f9;
             height: 100vh;
             overflow: hidden;
         }
 
-        /* ÖZEL SCROLLBAR (KAYDIRMA ÇUBUĞU) */
+        /* ÖZEL SCROLLBAR */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #0f172a; }
         ::-webkit-scrollbar-thumb { background: var(--accent-blue); border-radius: 4px; }
@@ -154,7 +154,7 @@
             gap: 15px;
         }
 
-        .menu-btn i { width: 20px; text-align: center; } /* İkon hizalaması */
+        .menu-btn i { width: 20px; text-align: center; } 
 
         .menu-btn:hover, .menu-btn.active {
             color: white;
@@ -197,7 +197,6 @@
             overflow: hidden;
         }
 
-        /* KART ÜSTÜNDEKİ İNCE ÇİZGİ EFEKTİ */
         .glass-card::before {
             content: '';
             position: absolute;
@@ -220,9 +219,9 @@
             margin-bottom: 25px;
         }
         
-        h2 span { color: var(--accent-blue); } /* Başlığın bir kısmı mavi olsun */
+        h2 span { color: var(--accent-blue); }
 
-        /* YENİ: PROJE KARTLARI */
+        /* PROJE KARTLARI */
         .project-item {
             background: rgba(2, 6, 23, 0.6);
             border: 1px solid rgba(255,255,255,0.1);
@@ -246,7 +245,7 @@
         .status-done { background: var(--success-green); box-shadow: 0 0 5px var(--success-green); }
         .status-dev { background: var(--warning-yellow); box-shadow: 0 0 5px var(--warning-yellow); }
 
-        /* YENİ: YETKİNLİK ROZETLERİ (CHIPS) */
+        /* YETKİNLİK ROZETLERİ */
         .skill-container {
             display: flex;
             flex-wrap: wrap;
@@ -327,7 +326,6 @@
             box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
         }
 
-        /* DAKTİLO İMLECİ */
         .cursor { display: inline-block; width: 10px; height: 1.2em; background-color: var(--accent-blue); animation: blink 1s infinite; vertical-align: bottom; }
         @keyframes blink { 0% { opacity: 0; } 50% { opacity: 1; } 100% { opacity: 0; } }
 
@@ -402,7 +400,6 @@
                         <span class="skill-badge" style="font-size:0.75rem; padding:4px 10px;">MQTT</span>
                     </div>
                 </div>
-
             </div>
         </div>
 
@@ -480,7 +477,6 @@
         // --- SAAT ---
         function updateClock() {
             const now = new Date();
-            // Format: YYYY-MM-DD HH:MM:SS (Mühendis formatı)
             const dateStr = now.toISOString().split('T')[0];
             const timeStr = now.toLocaleTimeString('tr-TR');
             document.getElementById('clock-display').innerHTML = `SYS.DATE: ${dateStr}<br>SYS.TIME: ${timeStr}`;
@@ -505,7 +501,7 @@
             if(tabName === 'hakkimda') resetTypewriter();
         }
 
-        // --- DAKTİLO EFEKTİ (Geliştirilmiş Hız) ---
+        // --- DAKTİLO EFEKTİ ---
         const textToType = "Elektrik-Elektronik Mühendisi adayıyım. AutoCAD ile proje tasarımı, KiCad ile PCB dizaynı ve MATLAB simülasyonları üzerine odaklanıyorum. Karmaşık problemleri; teknik analiz ve yaratıcı mühendislik çözümleriyle basitleştirmeyi hedefliyorum.";
         const typeEl = document.getElementById("typewriter-text");
         let typeIdx = 0;
@@ -522,7 +518,7 @@
                 } else {
                     clearInterval(typeInterval);
                 }
-            }, 25); // Biraz daha hızlı yazsın
+            }, 25);
         }
 
         function resetTypewriter() { startTypewriter(); }

@@ -143,7 +143,7 @@
 
         .tab-content {
             display: none;
-            width: 100%; max-width: 800px;
+            width: 100%; max-width: 900px; /* Genişliği biraz artırdık içerik rahatlasın diye */
             max-height: 85vh;
             overflow-y: auto;
             padding-right: 15px;
@@ -189,7 +189,7 @@
         }
 
         .btn-download {
-            margin-top: 30px;
+            margin-top: 20px;
             padding: 12px 25px;
             background: transparent;
             border: 1px solid var(--accent-blue);
@@ -211,12 +211,55 @@
         .education-info {
             margin-top: 20px;
             padding: 15px;
-            border-left: 2px solid var(--neon-amber);
-            background: rgba(255, 183, 0, 0.05);
+            border-left: 2px solid var(--accent-blue);
+            background: rgba(59, 130, 246, 0.05);
+        }
+
+        .experience-section {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .experience-title {
+            color: var(--neon-amber);
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tech-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 15px 0;
+        }
+
+        .tech-list li {
+            margin-bottom: 12px;
+            padding-left: 20px;
+            position: relative;
+            line-height: 1.6;
+            color: #cbd5e1;
+            font-size: 0.95rem;
+        }
+
+        .tech-list li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--accent-blue);
+            font-weight: bold;
+        }
+
+        .tech-list strong {
+            color: white;
+            font-weight: 500;
         }
 
         @media (max-width: 768px) {
-            .glass-card { padding: 30px; margin: 15px; }
+            .glass-card { padding: 25px; margin: 15px; }
             .sidebar { width: 100%; left: -100%; }
         }
     </style>
@@ -232,7 +275,7 @@
     <nav class="sidebar" id="mySidebar">
         <div class="sidebar-name">KAAN ERSEN</div>
         
-        <button class="menu-btn active" onclick="openTab(event, 'hakkimda')"><i class="fas fa-user"></i> HAKKIMDA</button>
+        <button class="menu-btn active" onclick="openTab(event, 'hakkimda')"><i class="fas fa-user"></i> HAKKIMDA & DENEYİM</button>
         <button class="menu-btn" onclick="openTab(event, 'projeler')"><i class="fas fa-microchip"></i> PROJELER</button>
         <button class="menu-btn" onclick="openTab(event, 'sertifikalar')"><i class="fas fa-certificate"></i> SERTİFİKALAR</button>
         <button class="menu-btn" onclick="openTab(event, 'yetkinlikler')"><i class="fas fa-tools"></i> YETKİNLİKLER</button>
@@ -256,6 +299,48 @@
                 </div>
 
                 <a href="cv.pdf" download class="btn-download"><i class="fas fa-download"></i> CV İNDİR</a>
+
+                <div class="experience-section">
+                    <div class="experience-title">
+                        <i class="fas fa-hard-hat"></i> Saha Deneyimi: Sagalassos Antik Kenti Aydınlatma Projesi
+                    </div>
+                    
+                    <p style="color: #cbd5e1; line-height: 1.6; font-size: 0.95rem;">
+                        <strong>Genel Bakış ve Altyapı Süreçleri:</strong> Staj süresince, Karacan Grup tarafından yürütülen Sagalassos Antik Kenti aydınlatma projesinin tüm aşamalarında aktif rol aldım. Saha çalışmalarına başladığımda altyapı kazılarının bir kısmı tamamlanmıştı; kalan bölümlerde ise kablo serimi, kazı güzergâhlarının projeye uygunluğu ve kapatma işlemlerini bizzat takip ettim. Çalışma alanı birinci derece arkeolojik sit alanı olduğu için tüm kazı süreçleri Arkeolog denetiminde yapıldı; yapı elemanlarına rastlanan noktalarda projeyi revize ederek güzergâh değişikliğine gittik veya çelik spiral borularla geçişler sağladık.
+                    </p>
+
+                    <h4 style="color: white; margin-top: 25px; margin-bottom: 10px; font-size: 1.05rem;">Elektrik Uygulamaları ve Teknik Hesaplamalar</h4>
+                    <ul class="tech-list">
+                        <li><strong>Kablo Tesisatı:</strong> Binada yüksek akım (aydınlatma, priz, motor beslemeleri) ve zayıf akım (internet, CCTV, yangın alarmı) hatlarını, sinyal parazitlerini önlemek amacıyla ayrı tava ve borular üzerinden tesis ettik.</li>
+                        <li><strong>Gerilim Düşümü Hesabı:</strong> Özellikle 24V DC ile çalışan Antoninler Çeşmesi bölgesinde, hat sonundaki armatürlerde parlaklık kaybı veya titreme (flicker) olmaması için AutoCAD üzerinden aldığım mesafe verileriyle gerilim düşümü hesaplarını gerçekleştirdim.</li>
+                        <li><strong>Faz Dengesi:</strong> Üç fazlı besleme hatlarında, nötr hattına gereksiz yük binmemesi ve sistemin stabil çalışması için armatür bağlantılarını fazlara eşit şekilde dağıttık.</li>
+                        <li><strong>Sürücü Hesapları:</strong> Çeşme içindeki 24V armatürler için toplam güç ihtiyacını analiz ederek gerekli LED sürücü sayılarını belirledim ve linyelere dağıtım kararlarını aldık.</li>
+                    </ul>
+
+                    <p style="color: #cbd5e1; line-height: 1.6; font-size: 0.95rem; margin-top: 20px;">
+                        <strong>Montaj ve Entegrasyon:</strong> Antik kentin girişindeki bordürler tamamlandıkça bollard tipi armatürlerin montajını ve bağlantılarını yaptık. Tarihi yapılara mekanik müdahale yapılamadığı için Antoninler Çeşmesi ve çevresindeki armatürlerin, buatların ve panoların sabitleme işleminde sadece asetonla çözülebilen özel Paraloid yapıştırıcı kullandık. Ayrıca projedeki IP kameraların Access Point üzerinden NVR kayıt cihazına veri aktarım şemasını (Kamera → AP → Switch → NVR) sahada inceleyerek kablosuz haberleşme altyapısını deneyimledim.
+                    </p>
+
+                    <p style="color: #cbd5e1; line-height: 1.6; font-size: 0.95rem; margin-top: 15px;">
+                        <strong>Saha Yönetimi:</strong> Sadece elektrik işleriyle sınırlı kalmayıp, şantiye şefinin yönlendirmesiyle günlük faaliyet raporlarını, puantajları ve malzeme listelerini hazırladım. Lazer kot cihazıyla kot farkı hesaplama, poliürea ile su yalıtımı ve traverten döşeme gibi inşaat disiplinine dair teknik detayları da yerinde gözlemleyerek çok yönlü bir saha tecrübesi edindim.
+                    </p>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 30px;">
+                        <div style="border-radius: 8px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); background: #000;">
+                            <video controls style="width: 100%; display: block;">
+                                <source src="saha-video-1.mp4" type="video/mp4">
+                                Tarayıcınız video etiketini desteklemiyor.
+                            </video>
+                        </div>
+                        <div style="border-radius: 8px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); background: #000;">
+                            <video controls style="width: 100%; display: block;">
+                                <source src="saha-video-2.mp4" type="video/mp4">
+                                Tarayıcınız video etiketini desteklemiyor.
+                            </video>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
 
@@ -439,7 +524,6 @@
             document.getElementById(tabName).classList.add("active");
             evt.currentTarget.classList.add("active");
             
-            // Mobil için sekme değişince menüyü otomatik kapat
             if(window.innerWidth <= 768) {
                 closeMenu();
             }

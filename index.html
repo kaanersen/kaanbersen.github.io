@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kaan Ersen</title>
+    <title>Kaan Ersen - Portfolyo</title>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -144,6 +144,9 @@
         .tab-content {
             display: none;
             width: 100%; max-width: 800px;
+            max-height: 85vh;
+            overflow-y: auto;
+            padding-right: 15px;
             animation: fadeIn 0.5s ease;
         }
 
@@ -156,7 +159,7 @@
 
         .glass-card {
             background: var(--glass-card);
-            padding: 50px;
+            padding: 40px;
             border-radius: 12px;
             backdrop-filter: blur(20px);
             border: 1px solid rgba(255,255,255,0.05);
@@ -199,6 +202,12 @@
             border-radius: 4px;
         }
 
+        .btn-download:hover {
+            background: var(--accent-blue);
+            color: white;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+        }
+
         .education-info {
             margin-top: 20px;
             padding: 15px;
@@ -216,16 +225,16 @@
 
     <div class="bg-fixed"></div>
 
-    <button class="toggle-btn" onmouseenter="openMenu()" onclick="toggleMenu()">
-        <i class="fas fa-bars"></i> <span>MENU</span>
+    <button class="toggle-btn" onclick="toggleMenu()">
+        <i class="fas fa-bars"></i> <span id="menu-text">MENU</span>
     </button>
 
-    <nav class="sidebar" id="mySidebar" onmouseleave="closeMenu()">
+    <nav class="sidebar" id="mySidebar">
         <div class="sidebar-name">KAAN ERSEN</div>
         
         <button class="menu-btn active" onclick="openTab(event, 'hakkimda')"><i class="fas fa-user"></i> HAKKIMDA</button>
         <button class="menu-btn" onclick="openTab(event, 'projeler')"><i class="fas fa-microchip"></i> PROJELER</button>
-        <button class="menu-btn" onclick="openTab(event, 'sertifikalar')"><i class="fas fa-certificate"></i> SERTİFİKALAR VE KURSLAR</button>
+        <button class="menu-btn" onclick="openTab(event, 'sertifikalar')"><i class="fas fa-certificate"></i> SERTİFİKALAR</button>
         <button class="menu-btn" onclick="openTab(event, 'yetkinlikler')"><i class="fas fa-tools"></i> YETKİNLİKLER</button>
         <button class="menu-btn" onclick="openTab(event, 'iletisim')"><i class="fas fa-envelope"></i> İLETİŞİM</button>
         
@@ -253,10 +262,34 @@
         <div id="projeler" class="tab-content">
             <div class="glass-card">
                 <h2>Proje <span>Portfolyosu</span></h2>
-                <p style="color: #94a3b8;">Geliştirilen projeler yakında burada listelenecektir.</p>
-                <div style="border: 1px dashed rgba(255,255,255,0.1); padding: 40px; text-align: center; color: #64748b; border-radius: 8px;">
-                    <i class="fas fa-code" style="font-size: 2rem; margin-bottom: 10px;"></i>
-                    <p>Henüz eklenmiş bir proje bulunmamaktadır.</p>
+                <p style="color: #94a3b8; margin-bottom: 25px;">Akademik ve kişisel mühendislik çalışmalarım.</p>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+                    
+                    <div style="padding: 20px; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; background: rgba(255,255,255,0.02);">
+                        <div style="height: 120px; background: #1e293b; border-radius: 6px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-car-battery" style="font-size: 2.5rem; color: var(--accent-blue);"></i>
+                        </div>
+                        <h3 style="color: white; margin: 0 0 10px 0; font-size: 1.1rem;">Otomobil Egzoz Isısından Elektrik Üretimi (TEG)</h3>
+                        <p style="font-size: 0.85rem; color: #94a3b8; line-height: 1.5;">Termoelektrik jeneratörler kullanarak atık ısıdan enerji geri kazanımı üzerine analiz ve sunum çalışması.</p>
+                        <div style="margin-top: 15px; display: flex; gap: 8px; flex-wrap: wrap;">
+                            <span style="font-size: 0.7rem; background: rgba(59,130,246,0.2); color: var(--accent-blue); padding: 4px 10px; border-radius: 15px;">Termodinamik</span>
+                            <span style="font-size: 0.7rem; background: rgba(255,183,0,0.2); color: var(--neon-amber); padding: 4px 10px; border-radius: 15px;">Araştırma</span>
+                        </div>
+                    </div>
+
+                    <div style="padding: 20px; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; background: rgba(255,255,255,0.02);">
+                        <div style="height: 120px; background: #1e293b; border-radius: 6px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-bolt" style="font-size: 2.5rem; color: var(--neon-amber);"></i>
+                        </div>
+                        <h3 style="color: white; margin: 0 0 10px 0; font-size: 1.1rem;">Yüksek Gerilim Negatif İyonize Devresi</h3>
+                        <p style="font-size: 0.85rem; color: #94a3b8; line-height: 1.5;">Hava temizleme ve statik deşarj amaçlı, BJT tabanlı yüksek gerilim jeneratörü tasarımı ve simülasyonu.</p>
+                        <div style="margin-top: 15px; display: flex; gap: 8px; flex-wrap: wrap;">
+                            <span style="font-size: 0.7rem; background: rgba(16,185,129,0.2); color: var(--success-green); padding: 4px 10px; border-radius: 15px;">Donanım Tasarımı</span>
+                            <span style="font-size: 0.7rem; background: rgba(245,158,11,0.2); color: var(--warning-yellow); padding: 4px 10px; border-radius: 15px;">Güç Elektroniği</span>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -264,9 +297,50 @@
         <div id="sertifikalar" class="tab-content">
             <div class="glass-card">
                 <h2>Sertifikalar ve <span>Kurslar</span></h2>
-                <p style="color: #94a3b8;">Tamamlanan eğitimler ve profesyonel sertifikalar.</p>
-                <div style="margin-top: 20px; color: #cbd5e1;">
-                    <p>Eğitim kayıtları hazırlanıyor...</p>
+                <p style="color: #94a3b8; margin-bottom: 25px;">Akademik ve profesyonel gelişim kayıtlarım.</p>
+                
+                <div style="display: flex; flex-direction: column; gap: 15px;">
+                    
+                    <div style="background: rgba(255,255,255,0.03); border-left: 4px solid var(--accent-blue); padding: 15px; border-radius: 4px; display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <h4 style="margin: 0; color: white;">Proteus ile Devre Tasarımı</h4>
+                            <p style="margin: 5px 0 0 0; color: #94a3b8; font-size: 0.85rem;">Teknik Eğitim Sertifikası</p>
+                        </div>
+                        <a href="Proteus_ile_Devre_Tasarımı_Sertifika.pdf" target="_blank" style="color: var(--accent-blue); text-decoration: none; font-size: 0.8rem; border: 1px solid var(--accent-blue); padding: 5px 10px; border-radius: 4px;">GÖRÜNTÜLE</a>
+                    </div>
+
+                    <div style="background: rgba(255,255,255,0.03); border-left: 4px solid var(--neon-amber); padding: 15px; border-radius: 4px; display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <h4 style="margin: 0; color: white;">Temel Elektronik ve Robotiğe Giriş</h4>
+                            <p style="margin: 5px 0 0 0; color: #94a3b8; font-size: 0.85rem;">Eğitim Sertifikası</p>
+                        </div>
+                        <a href="Temel_Elektronik_ve_Robotiğe_Giriş_Sertifika.pdf" target="_blank" style="color: var(--neon-amber); text-decoration: none; font-size: 0.8rem; border: 1px solid var(--neon-amber); padding: 5px 10px; border-radius: 4px;">GÖRÜNTÜLE</a>
+                    </div>
+
+                    <div style="background: rgba(255,255,255,0.03); border-left: 4px solid var(--success-green); padding: 15px; border-radius: 4px; display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <h4 style="margin: 0; color: white;">Temel Kriptoloji Sertifikası</h4>
+                            <p style="margin: 5px 0 0 0; color: #94a3b8; font-size: 0.85rem;">Siber Güvenlik / Matematik Temelleri</p>
+                        </div>
+                        <a href="Temel_Kriptoloji_Sertifika.pdf" target="_blank" style="color: var(--success-green); text-decoration: none; font-size: 0.8rem; border: 1px solid var(--success-green); padding: 5px 10px; border-radius: 4px;">GÖRÜNTÜLE</a>
+                    </div>
+
+                    <div style="background: rgba(255,255,255,0.03); border-left: 4px solid var(--accent-blue); padding: 15px; border-radius: 4px; display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <h4 style="margin: 0; color: white;">Sertifika / Başarı Belgesi 1</h4>
+                            <p style="margin: 5px 0 0 0; color: #94a3b8; font-size: 0.85rem;">Ek Dosya (C4C8ABBD5E5)</p>
+                        </div>
+                        <a href="C4C8ABBD5E5.jpg" target="_blank" style="color: var(--accent-blue); text-decoration: none; font-size: 0.8rem; border: 1px solid var(--accent-blue); padding: 5px 10px; border-radius: 4px;">GÖRÜNTÜLE</a>
+                    </div>
+
+                    <div style="background: rgba(255,255,255,0.03); border-left: 4px solid var(--neon-amber); padding: 15px; border-radius: 4px; display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <h4 style="margin: 0; color: white;">Sertifika / Başarı Belgesi 2</h4>
+                            <p style="margin: 5px 0 0 0; color: #94a3b8; font-size: 0.85rem;">Ek Dosya (OSD64A99656)</p>
+                        </div>
+                        <a href="OSD64A99656.jpg" target="_blank" style="color: var(--neon-amber); text-decoration: none; font-size: 0.8rem; border: 1px solid var(--neon-amber); padding: 5px 10px; border-radius: 4px;">GÖRÜNTÜLE</a>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -274,14 +348,57 @@
         <div id="yetkinlikler" class="tab-content">
             <div class="glass-card">
                 <h2>Teknik <span>Yetkinlikler</span></h2>
-                <p style="color: #94a3b8;">Mühendislik disiplininde kullandığım araçlar.</p>
+                <p style="color: #94a3b8; margin-bottom: 30px;">Mühendislik disiplininde kullandığım araçlar ve seviyeleri.</p>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 20px;">
+                    
+                    <div style="background: rgba(255,255,255,0.03); padding: 20px; border-radius: 8px; border: 1px solid rgba(59,130,246,0.2); text-align: center;">
+                        <i class="fas fa-drafting-dot" style="color: var(--accent-blue); font-size: 1.8rem; margin-bottom: 10px;"></i>
+                        <h4 style="margin: 10px 0; color: white;">AutoCAD</h4>
+                        <div style="width: 100%; background: #1e293b; height: 6px; border-radius: 10px; overflow: hidden;">
+                            <div style="width: 85%; background: var(--accent-blue); height: 100%;"></div>
+                        </div>
+                    </div>
+
+                    <div style="background: rgba(255,255,255,0.03); padding: 20px; border-radius: 8px; border: 1px solid rgba(255,183,0,0.2); text-align: center;">
+                        <i class="fas fa-square-root-variable" style="color: var(--neon-amber); font-size: 1.8rem; margin-bottom: 10px;"></i>
+                        <h4 style="margin: 10px 0; color: white;">MATLAB</h4>
+                        <div style="width: 100%; background: #1e293b; height: 6px; border-radius: 10px; overflow: hidden;">
+                            <div style="width: 75%; background: var(--neon-amber); height: 100%;"></div>
+                        </div>
+                    </div>
+
+                    <div style="background: rgba(255,255,255,0.03); padding: 20px; border-radius: 8px; border: 1px solid rgba(16,185,129,0.2); text-align: center;">
+                        <i class="fas fa-microchip" style="color: var(--success-green); font-size: 1.8rem; margin-bottom: 10px;"></i>
+                        <h4 style="margin: 10px 0; color: white;">KiCad</h4>
+                        <div style="width: 100%; background: #1e293b; height: 6px; border-radius: 10px; overflow: hidden;">
+                            <div style="width: 70%; background: var(--success-green); height: 100%;"></div>
+                        </div>
+                    </div>
+
+                    <div style="background: rgba(255,255,255,0.03); padding: 20px; border-radius: 8px; border: 1px solid rgba(245,158,11,0.2); text-align: center;">
+                        <i class="fas fa-magnet" style="color: var(--warning-yellow); font-size: 1.8rem; margin-bottom: 10px;"></i>
+                        <h4 style="margin: 10px 0; color: white;">FEMM 4.2</h4>
+                        <div style="width: 100%; background: #1e293b; height: 6px; border-radius: 10px; overflow: hidden;">
+                            <div style="width: 80%; background: var(--warning-yellow); height: 100%;"></div>
+                        </div>
+                    </div>
+
                 </div>
+            </div>
         </div>
 
         <div id="iletisim" class="tab-content">
             <div class="glass-card">
                 <h2>İletişim <span>Kanalları</span></h2>
-                <p style="color:#cbd5e1;">kaanbersen@gmail.com</p>
+                <p style="color:#cbd5e1; margin-bottom: 30px;">Projeler, fikir alışverişi veya işbirlikleri için bana ulaşabilirsiniz.</p>
+                
+                <div style="display: flex; flex-direction: column; gap: 15px;">
+                    <a href="mailto:kaanbersen@gmail.com" style="display: flex; align-items: center; gap: 15px; color: white; text-decoration: none; background: rgba(255,255,255,0.03); padding: 15px 20px; border-radius: 6px; border: 1px solid rgba(59,130,246,0.2); transition: 0.3s;">
+                        <i class="fas fa-envelope" style="color: var(--accent-blue); font-size: 1.5rem;"></i>
+                        <span style="font-size: 1.1rem;">kaanbersen@gmail.com</span>
+                    </a>
+                </div>
             </div>
         </div>
     </main>
@@ -289,12 +406,14 @@
     <script>
         function openMenu() {
             document.getElementById("mySidebar").classList.add("active");
-            document.querySelector(".toggle-btn").innerHTML = '<i class="fas fa-times"></i> <span>KAPAT</span>';
+            document.getElementById("menu-text").innerText = "KAPAT";
+            document.querySelector(".toggle-btn i").className = "fas fa-times";
         }
 
         function closeMenu() {
             document.getElementById("mySidebar").classList.remove("active");
-            document.querySelector(".toggle-btn").innerHTML = '<i class="fas fa-bars"></i> <span>MENU</span>';
+            document.getElementById("menu-text").innerText = "MENU";
+            document.querySelector(".toggle-btn i").className = "fas fa-bars";
         }
 
         function toggleMenu() {
@@ -319,7 +438,11 @@
             
             document.getElementById(tabName).classList.add("active");
             evt.currentTarget.classList.add("active");
-            closeMenu();
+            
+            // Mobil için sekme değişince menüyü otomatik kapat
+            if(window.innerWidth <= 768) {
+                closeMenu();
+            }
         }
     </script>
 </body>

@@ -18,9 +18,9 @@
     <style>
         :root {
             /* PREMIUM MINIMALIST RENK PALETİ */
-            --bg-color: #000000;         /* Tam Siyah Arka Plan */
-            --sidebar-bg: #09090b;       /* Çok Koyu Gri Menü */
-            --card-bg: #111111;          /* Mat Koyu Gri Kartlar */
+            --bg-color: #000000;         /* Ana Zemin Rengi (Yedek) */
+            --sidebar-bg: rgba(9, 9, 11, 0.98); /* Çok Koyu Gri Menü (Hafif Şeffaf) */
+            --card-bg: rgba(17, 17, 17, 0.95);  /* Mat Koyu Gri Kartlar (Hafif Şeffaf) */
             --border-color: #27272a;     /* İnce, şık çerçeve rengi */
             
             --text-main: #ffffff;        /* Net Beyaz (Başlıklar) */
@@ -31,15 +31,19 @@
         body, html {
             margin: 0; padding: 0;
             font-family: 'Inter', sans-serif;
-            background-color: var(--bg-color);
             color: var(--text-main);
             height: 100vh;
             overflow: hidden;
             -webkit-font-smoothing: antialiased;
+            /* YENİ ARKA PLAN GÖRSELİ VE FİLTRE */
+            background-image: linear-gradient(rgba(0, 0, 0, 0.92), rgba(0, 0, 0, 0.92)), url('doku.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
         }
 
         ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--bg-color); }
+        ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: #3f3f46; border-radius: 4px; }
 
         /* SİDEBAR (SOL MENÜ) - Daha sabit ve ciddi */
@@ -54,6 +58,7 @@
             border-right: 1px solid var(--border-color);
             padding-top: 50px;
             z-index: 1000;
+            backdrop-filter: blur(5px); /* Hafif buzlu cam efekti */
         }
 
         .sidebar-header {
@@ -97,12 +102,12 @@
 
         .menu-btn:hover {
             color: var(--text-main);
-            background: #18181b;
+            background: rgba(255, 255, 255, 0.05);
         }
 
         .menu-btn.active {
             color: var(--text-main);
-            background: #18181b;
+            background: rgba(255, 255, 255, 0.05);
             border-right: 2px solid var(--text-main);
         }
 
@@ -115,7 +120,6 @@
             justify-content: center;
             padding: 40px;
             box-sizing: border-box;
-            background-color: var(--bg-color);
         }
 
         .tab-content {
@@ -142,6 +146,7 @@
             border-radius: 6px;
             border: 1px solid var(--border-color);
             margin-bottom: 30px;
+            backdrop-filter: blur(10px); /* İçerik kartlarına da hafif buzlu cam */
         }
 
         h2 { 
@@ -198,7 +203,7 @@
             transition: 0.2s;
         }
 
-        .btn-outline:hover { background: #18181b; border-color: #52525b; }
+        .btn-outline:hover { background: rgba(255, 255, 255, 0.05); border-color: #52525b; }
 
         /* MADDELER (BULLET POINTS) */
         .tech-list {
@@ -234,7 +239,7 @@
         .tag {
             display: inline-block;
             padding: 4px 10px;
-            background: #18181b;
+            background: rgba(255, 255, 255, 0.05);
             border: 1px solid var(--border-color);
             border-radius: 4px;
             font-size: 0.8rem;
@@ -444,7 +449,7 @@
                 <p style="margin-bottom: 25px;">Profesyonel ağlar ve iletişim kanalları üzerinden ulaşabilirsiniz.</p>
                 
                 <div style="display: flex; flex-direction: column; gap: 15px; max-width: 400px;">
-                    <a href="mailto:kaanbersen@gmail.com" style="display: flex; align-items: center; gap: 15px; color: var(--text-main); text-decoration: none; padding: 15px 20px; border: 1px solid var(--border-color); border-radius: 4px; background: #18181b; transition: 0.2s;">
+                    <a href="mailto:kaanbersen@gmail.com" style="display: flex; align-items: center; gap: 15px; color: var(--text-main); text-decoration: none; padding: 15px 20px; border: 1px solid var(--border-color); border-radius: 4px; background: rgba(255, 255, 255, 0.05); transition: 0.2s;">
                         <i class="fas fa-envelope" style="font-size: 1.2rem; color: var(--text-muted);"></i>
                         <span style="font-weight: 500;">kaanbersen@gmail.com</span>
                     </a>

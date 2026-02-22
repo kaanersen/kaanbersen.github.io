@@ -15,28 +15,25 @@
     
     <style>
         :root {
-            /* DAHA CİDDİ RENK PALETİ */
-            --bg-deep: #050505; /* Daha derin siyah */
-            --sidebar-bg: rgba(10, 12, 16, 0.98); /* Koyu gri/siyah menü */
-            --accent-blue: #4a76a8; /* Çelik Mavisi (Steel Blue) - Neon yerine metalik */
-            --neon-amber: #c77d00;  /* Bronz/Yanık Turuncu */
-            --glass-card: rgba(20, 22, 26, 0.9); /* Daha koyu, daha az şeffaf kartlar */
+            --bg-deep: #050505; 
+            --sidebar-bg: rgba(10, 12, 16, 0.98); 
+            --accent-blue: #4a76a8; 
+            --neon-amber: #c77d00;  
+            --glass-card: rgba(20, 22, 26, 0.9); 
             
-            /* Yardımcı renkler de desatüre edildi (solduruldu) */
-            --success-green: #2e8b57; /* Deniz yeşili */
-            --warning-yellow: #b8860b; /* Koyu altın */
+            --success-green: #2e8b57; 
+            --warning-yellow: #b8860b; 
         }
 
         body, html {
             margin: 0; padding: 0;
-            font-family: 'Montserrat', Arial, sans-serif; /* Ana font değişti */
+            font-family: 'Montserrat', Arial, sans-serif; 
             color: #e2e8f0;
             height: 100vh;
             overflow: hidden;
-            letter-spacing: 0.5px; /* Harf aralığı arttı */
+            letter-spacing: 0.5px; 
         }
 
-        /* Scrollbar daha köşeli */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #0a0a0a; }
         ::-webkit-scrollbar-thumb { background: var(--accent-blue); border-radius: 0; }
@@ -52,20 +49,19 @@
             z-index: -2;
         }
 
-        /* KESKİN KÖŞELER VE CİDDİ BUTONLAR */
         .toggle-btn {
             position: fixed;
             top: 25px; left: 25px;
             background: rgba(10, 12, 16, 0.9);
             color: var(--accent-blue);
-            border: 1px solid var(--accent-blue); /* Daha net sınır */
+            border: 1px solid var(--accent-blue); 
             padding: 12px 18px;
-            border-radius: 0px; /* KESKİN KÖŞE */
+            border-radius: 0px; 
             cursor: pointer;
             z-index: 2000;
             font-size: 1rem;
-            font-weight: 700; /* Kalın font */
-            text-transform: uppercase; /* BÜYÜK HARF */
+            font-weight: 700; 
+            text-transform: uppercase; 
             transition: 0.2s;
             display: flex;
             align-items: center;
@@ -74,10 +70,9 @@
         
         .toggle-btn:hover {
             background: var(--accent-blue);
-            color: #000; /* Hover'da siyah yazı */
+            color: #000; 
         }
 
-        /* SIDEBAR DAHA ENDÜSTRİYEL */
         .sidebar {
             width: 280px;
             height: 100vh;
@@ -87,11 +82,11 @@
             top: 0;
             display: flex;
             flex-direction: column;
-            border-right: 2px solid rgba(74, 118, 168, 0.2); /* Kalın sınır */
+            border-right: 2px solid rgba(74, 118, 168, 0.2); 
             padding-top: 80px;
             z-index: 1000;
-            transition: left 0.3s ease-in-out; /* Daha hızlı geçiş */
-            box-shadow: 5px 0 25px rgba(0,0,0,1); /* Daha sert gölge */
+            transition: left 0.3s ease-in-out; 
+            box-shadow: 5px 0 25px rgba(0,0,0,1); 
         }
 
         .sidebar.active { left: 0; }
@@ -121,7 +116,7 @@
             background: none;
             text-align: left;
             font-size: 0.9rem;
-            border-left: 4px solid transparent; /* Daha kalın gösterge */
+            border-left: 4px solid transparent; 
             display: flex;
             align-items: center;
             gap: 15px;
@@ -137,7 +132,6 @@
             border-left: 4px solid var(--accent-blue);
         }
 
-        /* İÇERİK ALANI */
         .main-view {
             width: 100%; height: 100vh;
             display: flex;
@@ -153,7 +147,7 @@
             max-height: 88vh;
             overflow-y: auto;
             padding-right: 10px;
-            animation: fadeIn 0.3s ease; /* Daha hızlı açılış */
+            animation: fadeIn 0.3s ease; 
         }
 
         .tab-content.active { display: block; }
@@ -163,33 +157,30 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* DAHA AĞIR VE KESKİN KARTLAR */
         .glass-card {
             background: var(--glass-card);
             padding: 40px;
-            border-radius: 2px; /* KESKİN KÖŞE */
+            border-radius: 2px; 
             border: 1px solid rgba(255,255,255,0.08);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8); /* Daha sert gölge */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8); 
             position: relative;
         }
 
-        /* Kart üstü çizgisi artık düz metalik mavi */
         .glass-card::before {
             content: '';
             position: absolute;
             top: 0; left: 0; width: 100%; height: 3px;
-            background: var(--accent-blue); /* Düz renk */
+            background: var(--accent-blue); 
             opacity: 1;
         }
 
-        /* BAŞLIKLAR DAHA GÜÇLÜ */
         h2 { 
             color: white; 
             margin-top: 0; 
             font-size: 2.2rem; 
-            font-weight: 800; /* Çok kalın */
+            font-weight: 800; 
             margin-bottom: 30px; 
-            text-transform: uppercase; /* BÜYÜK HARF */
+            text-transform: uppercase; 
             letter-spacing: 1px;
         }
         h2 span { color: var(--accent-blue); }
@@ -198,7 +189,7 @@
             margin-top: auto; 
             padding: 20px; 
             text-align: center;
-            font-family: 'Roboto Mono', monospace; /* Terminal fontu */
+            font-family: 'Roboto Mono', monospace; 
             color: #64748b;
             font-size: 0.75rem;
             border-top: 1px solid rgba(255,255,255,0.1);
@@ -209,14 +200,14 @@
             margin-top: 25px;
             padding: 12px 30px;
             background: transparent;
-            border: 2px solid var(--accent-blue); /* Kalın kenar */
+            border: 2px solid var(--accent-blue); 
             color: var(--accent-blue);
             font-weight: 700;
             cursor: pointer;
             transition: 0.2s;
             display: inline-block;
             text-decoration: none;
-            border-radius: 0px; /* KESKİN KÖŞE */
+            border-radius: 0px; 
             text-transform: uppercase;
             letter-spacing: 1px;
         }
@@ -229,7 +220,7 @@
         .education-info {
             margin-top: 25px;
             padding: 20px;
-            border-left: 4px solid var(--accent-blue); /* Kalın kenar */
+            border-left: 4px solid var(--accent-blue); 
             background: rgba(74, 118, 168, 0.1);
             border-radius: 0px;
         }
@@ -261,7 +252,7 @@
         }
 
         .tech-list li::before {
-            content: '■'; /* Ok yerine kare (daha teknik) */
+            content: '■'; 
             position: absolute;
             left: 0;
             color: var(--accent-blue);
@@ -277,7 +268,6 @@
             letter-spacing: 0.5px;
         }
         
-        /* Video ve Sertifika kutuları için keskin köşeler */
         .video-container, .cert-box, .contact-box {
              border-radius: 2px !important;
              border: 1px solid rgba(255,255,255,0.1) !important;
@@ -375,11 +365,26 @@
                 <h2>PROJE <span>PORTFOLYOSU</span></h2>
                 <p style="color: #94a3b8; margin-bottom: 25px; font-weight: 500;">Akademik ve kişisel mühendislik çalışmalarım.</p>
                 
-                <div class="cert-box" style="border: 2px dashed rgba(74, 118, 168, 0.3) !important; padding: 50px; text-align: center; color: #64748b;">
-                    <i class="fas fa-cogs" style="font-size: 3rem; margin-bottom: 20px; color: var(--accent-blue); opacity: 0.7;"></i>
-                    <p style="font-size: 1.2rem; font-weight: 600; text-transform: uppercase;">Projeler Hazırlanıyor</p>
-                    <p style="font-size: 0.9rem;">Detaylı teknik analizler yakında eklenecektir.</p>
+                <div class="cert-box" style="background: rgba(255,255,255,0.02); border-left: 4px solid var(--accent-blue) !important; padding: 25px; display: flex; flex-direction: column; gap: 15px;">
+                    <div>
+                        <h3 style="margin: 0; color: white; font-weight: 800; text-transform: uppercase; font-size: 1.2rem; display: flex; align-items: center; gap: 10px;">
+                            <i class="fas fa-file-pdf" style="color: #e2e8f0;"></i> PID AC MOTOR KONTROL SİSTEMİ
+                        </h3>
+                        <p style="margin: 8px 0 0 0; color: var(--accent-blue); font-size: 0.95rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">
+                            Tasarım ve Analiz Raporu
+                        </p>
+                        <p style="margin: 15px 0 0 0; color: #cbd5e1; font-size: 0.95rem; line-height: 1.6;">
+                            AC motorların oransal-integral-türevsel (PID) denetleyiciler kullanılarak hız ve konum kontrolünün sağlanması üzerine detaylı tasarım kriterleri, matematiksel modelleme ve performans analizlerini içeren teknik mühendislik raporu.
+                        </p>
+                    </div>
+                    
+                    <div style="margin-top: 10px;">
+                        <a href="RAPOR1.pdf" target="_blank" style="display: inline-block; color: var(--bg-deep); background-color: var(--accent-blue); text-decoration: none; font-size: 0.9rem; padding: 10px 20px; font-weight: 800; text-transform: uppercase; transition: 0.2s;">
+                            <i class="fas fa-search" style="margin-right: 5px;"></i> RAPORU GÖRÜNTÜLE
+                        </a>
+                    </div>
                 </div>
+
             </div>
         </div>
 

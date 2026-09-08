@@ -67,7 +67,7 @@ body{
   margin:0; min-height:100vh;
   font-family:var(--font);
   color:var(--text);
-  background:#09090b;
+  background:var(--bg,#09090b);
   -webkit-font-smoothing:antialiased;
   text-rendering:optimizeLegibility;
 }
@@ -142,26 +142,12 @@ a{color:inherit}
   width:3px;height:19px;border-radius:0 3px 3px 0;background:var(--accent);
 }
 
-/* Sayaç kutusu */
-.counter{
-  display:none; margin:0 12px 12px; padding:11px 13px;
-  align-items:center; gap:9px; flex-wrap:wrap;
-  border-radius:var(--r-sm);
-  background:var(--panel-2); border:1px solid var(--line);
-  font-family:var(--mono); font-size:.68rem; color:var(--muted);
-}
-.counter.show{display:flex}
-.counter i{color:var(--accent);font-size:.72rem}
-.counter b{color:var(--text);font-weight:600}
-.ct-sep{width:1px;height:12px;background:var(--line-2)}
-
 .side-foot{padding:14px 16px 18px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:10px}
 .icon-btn{
   width:36px;height:36px;display:grid;place-items:center;
   border-radius:10px;border:1px solid var(--line);
   background:var(--panel-2);color:var(--text-2);
   cursor:pointer;transition:.2s;font-size:.85rem;
-  text-decoration:none;
 }
 .icon-btn:hover{color:var(--text);border-color:var(--line-2)}
 .side-foot small{font-size:.7rem;color:var(--muted);font-family:var(--mono)}
@@ -202,16 +188,6 @@ a{color:inherit}
 .panel-view.active .card:nth-child(2){animation-delay:.07s}
 .panel-view.active .card:nth-child(3){animation-delay:.14s}
 @keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
-
-/* Kişisel karşılama rozeti */
-.hello{
-  display:none; align-items:center; gap:9px;
-  padding:7px 14px; border-radius:99px; margin-bottom:18px;
-  background:var(--glow);
-  border:1px solid color-mix(in srgb,var(--accent) 26%,transparent);
-  color:var(--accent); font-size:.8rem; font-weight:600;
-}
-.hello.show{display:inline-flex}
 
 .eyebrow{
   display:inline-flex;align-items:center;gap:8px;
@@ -326,76 +302,6 @@ p.lead{font-size:1.03rem;line-height:1.8}
 
 .foot{text-align:center;color:var(--muted);font-size:.78rem;font-family:var(--mono);padding:10px 0 0}
 
-/* ============ GİRİŞ EKRANI ============ */
-body.locked{overflow:hidden}
-
-.gate{
-  position:fixed; inset:0; z-index:9999;
-  display:grid; place-items:center; padding:24px;
-  background:rgba(6,6,8,.72);
-  backdrop-filter:blur(22px) saturate(120%);
-  -webkit-backdrop-filter:blur(22px) saturate(120%);
-  transition:opacity .5s var(--ease), visibility .5s;
-}
-.gate.hide{opacity:0; visibility:hidden}
-
-.gate-card{
-  width:100%; max-width:430px; text-align:center;
-  padding:38px 30px;
-  background:var(--panel);
-  border:1px solid var(--line);
-  border-radius:var(--r);
-  box-shadow:var(--shadow);
-  animation:gateIn .55s var(--ease) both;
-}
-@keyframes gateIn{from{opacity:0;transform:translateY(20px) scale(.97)}to{opacity:1;transform:none}}
-.gate-card.shake{animation:shake .4s}
-@keyframes shake{
-  0%,100%{transform:translateX(0)}
-  20%{transform:translateX(-9px)} 40%{transform:translateX(8px)}
-  60%{transform:translateX(-5px)} 80%{transform:translateX(4px)}
-}
-
-.gate-ic{
-  width:58px; height:58px; margin:0 auto 20px;
-  display:grid; place-items:center;
-  border-radius:17px; font-size:1.35rem;
-  color:var(--accent); background:var(--glow);
-  border:1px solid color-mix(in srgb,var(--accent) 28%,transparent);
-  transition:.35s var(--ease);
-}
-.gate-ic.open{transform:rotate(-8deg) scale(1.08)}
-
-.gate-title{font-size:1.35rem;font-weight:700;letter-spacing:-.5px;margin:0 0 10px}
-.gate-sub{color:var(--muted);font-size:.92rem;line-height:1.65;margin:0 0 24px}
-
-.gate-form{display:flex;gap:9px}
-.gate-form input{
-  flex:1; min-width:0;
-  padding:12px 15px; border-radius:10px;
-  background:var(--panel-2); border:1px solid var(--line);
-  color:var(--text); font-family:inherit; font-size:.92rem;
-  outline:none; transition:border-color .2s;
-}
-.gate-form input::placeholder{color:var(--muted)}
-.gate-form input:focus{border-color:var(--accent)}
-.gate-form .btn{flex:none}
-
-.gate-msg{margin-top:16px;font-family:var(--mono);font-size:.75rem;color:var(--muted);min-height:18px;line-height:1.5}
-.gate-msg.ok{color:#22c55e}
-
-.gate-meta{
-  margin-top:18px;padding-top:16px;border-top:1px solid var(--line);
-  font-family:var(--mono);font-size:.66rem;color:var(--muted);opacity:.8;
-  line-height:1.7;letter-spacing:.3px;
-}
-.gate-alt{
-  display:none;margin-top:14px;background:none;border:0;
-  color:var(--muted);font-family:var(--font);font-size:.78rem;
-  cursor:pointer;text-decoration:underline;text-underline-offset:3px;
-}
-.gate-alt:hover{color:var(--text)}
-
 /* ============ RESPONSIVE ============ */
 @media (max-width:980px){
   .topbar{display:flex}
@@ -403,7 +309,6 @@ body.locked{overflow:hidden}
   .sidebar.open{transform:translateX(0)}
   .main{margin-left:0;padding:88px 18px 60px}
   .card{padding:24px 20px;border-radius:14px}
-  .gate-card{padding:30px 22px}
 }
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
@@ -411,24 +316,6 @@ body.locked{overflow:hidden}
 </style>
 </head>
 <body>
-
-<!-- GİRİŞ EKRANI -->
-<div class="gate" id="gate" role="dialog" aria-modal="true" aria-label="Giriş">
-  <div class="gate-card" id="gateCard">
-    <div class="gate-ic" id="gateIc"><i class="fas fa-lock"></i></div>
-    <h2 class="gate-title" id="gateTitle">Bu sayfa kilitli</h2>
-    <p class="gate-sub" id="gateSub">Bayadır yenilemiyorum burayı. Gezmek istiyorsan şifreyi gir.</p>
-
-    <div class="gate-form" id="gateForm">
-      <input type="password" id="gateInput" placeholder="Şifre" autocomplete="off" spellcheck="false" aria-label="Şifre">
-      <button class="btn btn-solid" id="gateBtn">Gir</button>
-    </div>
-
-    <div class="gate-msg" id="gateMsg">İpucu: ipucu yok.</div>
-    <button class="gate-alt" id="gateAlt"></button>
-    <div class="gate-meta" id="gateMeta"></div>
-  </div>
-</div>
 
 <a class="skip" href="#icerik">İçeriğe geç</a>
 
@@ -462,14 +349,6 @@ body.locked{overflow:hidden}
     <button class="nav-link" role="tab" aria-selected="false" data-tab="iletisim"><i class="fas fa-envelope"></i> İletişim</button>
   </nav>
 
-  <!-- ZİYARET SAYACI -->
-  <div class="counter" id="counter" title="Ziyaret sayacı">
-    <i class="fas fa-eye"></i>
-    <span><b id="ctToplam">—</b> toplam</span>
-    <span class="ct-sep"></span>
-    <span><b id="ctBugun">—</b> bugün</span>
-  </div>
-
   <div class="side-foot">
     <small>© <span id="yil"></span></small>
     <div style="display:flex;gap:8px">
@@ -486,7 +365,6 @@ body.locked{overflow:hidden}
   <!-- HAKKIMDA -->
   <section class="panel-view active" id="hakkimda" role="tabpanel">
     <div class="card">
-      <span class="hello" id="hosgeldin"></span>
       <span class="eyebrow">Profil</span>
       <h1>Teoriyi sahadaki<br>çözümle buluşturuyorum.</h1>
       <p class="lead">
@@ -704,271 +582,26 @@ body.locked{overflow:hidden}
 </main>
 
 <script>
-/* =======================================================
-   YARDIMCILAR
-   ======================================================= */
-function oku(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
-function yaz(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
-function sil(k){ try{ localStorage.removeItem(k); }catch(e){} }
-function sOku(k){ try{ return sessionStorage.getItem(k); }catch(e){ return null; } }
-function sYaz(k,v){ try{ sessionStorage.setItem(k,v); }catch(e){} }
-
-function selam(){
-  var h = new Date().getHours();
-  if (h < 6)  return 'İyi geceler';
-  if (h < 12) return 'Günaydın';
-  if (h < 18) return 'İyi günler';
-  return 'İyi akşamlar';
-}
-
-function buyukHarf(s){
-  s = (s || '').trim().replace(/\s+/g, ' ').slice(0, 24);
-  if (!s) return '';
-  return s.split(' ').map(function (w) {
-    return w.charAt(0).toLocaleUpperCase('tr') + w.slice(1).toLocaleLowerCase('tr');
-  }).join(' ');
-}
-
-function cihaz(){
-  var ua = navigator.userAgent, os = 'bilinmeyen sistem', tr = 'tarayıcı';
-  if (/Android/.test(ua)) os = 'Android';
-  else if (/iPhone|iPad|iPod/.test(ua)) os = 'iOS';
-  else if (/Windows/.test(ua)) os = 'Windows';
-  else if (/Mac OS X/.test(ua)) os = 'macOS';
-  else if (/Linux/.test(ua)) os = 'Linux';
-
-  if (/Edg\//.test(ua)) tr = 'Edge';
-  else if (/OPR\//.test(ua)) tr = 'Opera';
-  else if (/Firefox\//.test(ua)) tr = 'Firefox';
-  else if (/Chrome\//.test(ua)) tr = 'Chrome';
-  else if (/Safari\//.test(ua)) tr = 'Safari';
-
-  return tr + ' · ' + os;
-}
-
-/* =======================================================
-   ZİYARET SAYACI
-   Ücretsiz sayaç servisi — üyelik/anahtar istemiyor.
-   ÖNEMLİ: Aşağıdaki iki anahtardaki "kaanersen_7c21" kısmını
-   kendine özel, tahmin edilmesi zor bir şeyle değiştir.
-   Anahtarlar herkese açıktır, gizli veri koyma.
-   ======================================================= */
-var SAYAC = (function () {
-  var BASE   = 'https://countapi.mileshilliard.com/api/v1';
-  var TOPLAM = 'kaanersen_7c21_toplam';
-  var GUNLUK = 'kaanersen_7c21_gun';
-
-  function gunAnahtari(){
-    var d = new Date(), p = function (x) { return ('0' + x).slice(-2); };
-    return GUNLUK + d.getFullYear() + p(d.getMonth() + 1) + p(d.getDate());
-  }
-
-  function cek(uc, k){
-    return fetch(BASE + '/' + uc + '/' + k)
-      .then(function (r) { return r.json(); })
-      .then(function (d) { return (d && d.value != null) ? parseInt(d.value, 10) : null; })
-      .catch(function () { return null; });
-  }
-
-  return {
-    baslat: function (bitince) {
-      var yeniOturum = !sOku('sayac_vuruldu');
-      var uc = yeniOturum ? 'hit' : 'get';
-      sYaz('sayac_vuruldu', '1');
-      Promise.all([cek(uc, TOPLAM), cek(uc, gunAnahtari())])
-        .then(function (r) { bitince(r[0], r[1]); });
-    }
-  };
-})();
-
-var SAYIM = { toplam: null, bugun: null, hazir: false, kuyruk: [] };
-
-SAYAC.baslat(function (toplam, bugun) {
-  SAYIM.toplam = toplam;
-  SAYIM.bugun  = bugun;
-  SAYIM.hazir  = true;
-
-  if (toplam != null) {
-    document.getElementById('ctToplam').textContent = toplam.toLocaleString('tr-TR');
-    document.getElementById('ctBugun').textContent  = (bugun != null ? bugun : 1).toLocaleString('tr-TR');
-    document.getElementById('counter').classList.add('show');
-  }
-  SAYIM.kuyruk.forEach(function (f) { f(SAYIM); });
-  SAYIM.kuyruk = [];
-});
-
-function sayimHazir(fn){ SAYIM.hazir ? fn(SAYIM) : SAYIM.kuyruk.push(fn); }
-
-/* =======================================================
-   GİRİŞ EKRANI + KİŞİSEL KARŞILAMA
-   ======================================================= */
 (function () {
-  var gate = document.getElementById('gate');
-  var card = document.getElementById('gateCard');
-  var ic   = document.getElementById('gateIc');
-  var ttl  = document.getElementById('gateTitle');
-  var sub  = document.getElementById('gateSub');
-  var form = document.getElementById('gateForm');
-  var inp  = document.getElementById('gateInput');
-  var btn  = document.getElementById('gateBtn');
-  var msg  = document.getElementById('gateMsg');
-  var alt  = document.getElementById('gateAlt');
-  var meta = document.getElementById('gateMeta');
-
-  var AD_K = 'ziyaretci_adi';
-  var SY_K = 'ziyaret_sayim';
-  var adim = 'sifre';
-  var kilit = false;
-
-  /* Kaçıncı ziyaret (oturum başına bir kez artar) */
-  var kacinci = parseInt(oku(SY_K) || '0', 10);
-  if (!sOku('oturum_sayildi')) { kacinci += 1; yaz(SY_K, kacinci); sYaz('oturum_sayildi', '1'); }
-  if (kacinci < 1) kacinci = 1;
-
-  var ad = oku(AD_K);
-
-  document.body.classList.add('locked');
-  meta.textContent = cihaz() + ' · ' + new Date().toLocaleDateString('tr-TR');
-  sayimHazir(function (s) {
-    if (s.toplam != null) meta.textContent += ' · sayfa ' + s.toplam.toLocaleString('tr-TR') + '. kez açıldı';
-  });
-
-  /* --- Tanıdıksa şifre sorma --- */
-  if (ad) {
-    adim = 'tanidik';
-    ic.innerHTML = '<i class="fas fa-hand-sparkles"></i>';
-    ttl.textContent = selam() + ', ' + ad + '!';
-    sub.textContent = 'Seni tanıyorum, şifre sormuyorum. Buraya ' + kacinci + '. gelişin.';
-    inp.style.display = 'none';
-    btn.textContent = 'Devam';
-    msg.textContent = 'Kapı zaten açık.';
-    alt.style.display = 'inline-block';
-    alt.textContent = 'Ben ' + ad + ' değilim';
-    setTimeout(function () { if (adim === 'tanidik') kapat(); }, 3400);
-  } else {
-    setTimeout(function () { inp.focus(); }, 600);
-  }
-
-  var bosLaflar = [
-    'Boş geçilmez. Bir şeyler yaz.',
-    'Hadi ama, bir şey yaz.',
-    'En azından "1234" dene.'
-  ];
-
-  function titret(metin){
-    card.classList.remove('shake');
-    void card.offsetWidth;
-    card.classList.add('shake');
-    msg.classList.remove('ok');
-    msg.textContent = metin;
-    inp.focus();
-  }
-
-  /* --- Adım 1: şifre şakası --- */
-  function sifreDene(){
-    if (kilit) return;
-    if (!inp.value.trim()) { titret(bosLaflar[Math.floor(Math.random() * bosLaflar.length)]); return; }
-
-    kilit = true;
-    btn.disabled = true; inp.disabled = true;
-
-    var n = 0;
-    msg.classList.remove('ok');
-    var t = setInterval(function () {
-      n = (n + 1) % 4;
-      msg.textContent = 'Kontrol ediliyor' + '.'.repeat(n);
-    }, 220);
-
-    setTimeout(function () {
-      clearInterval(t);
-      kilit = false;
-      adSor();
-    }, 1200);
-  }
-
-  /* --- Adım 2: isim --- */
-  function adSor(){
-    adim = 'ad';
-    ic.classList.add('open');
-    ic.innerHTML = '<i class="fas fa-lock-open"></i>';
-    ttl.textContent = 'Şifre falan yok :)';
-    sub.textContent = 'Şakasına koydum, ne yazsan girecektin. Madem geldin — adın ne? Bir dahakine seni isminle karşılarım.';
-    inp.disabled = false; inp.type = 'text'; inp.value = '';
-    inp.placeholder = 'Adın (boş bırakabilirsin)';
-    btn.disabled = false; btn.textContent = 'Tamam';
-    msg.classList.remove('ok');
-    msg.textContent = 'Bu bilgi sadece senin tarayıcında kalır, hiçbir yere gönderilmez.';
-    inp.focus();
-  }
-
-  function adKaydet(){
-    var yeniAd = buyukHarf(inp.value);
-    ic.innerHTML = '<i class="fas fa-face-smile"></i>';
-    if (yeniAd) {
-      yaz(AD_K, yeniAd);
-      ttl.textContent = selam() + ', ' + yeniAd + '!';
-      sub.textContent = 'Tanıştığımıza sevindim. Buyur, rahat rahat gez.';
-    } else {
-      ttl.textContent = 'Peki, isimsiz kahraman.';
-      sub.textContent = 'Buyur, rahat rahat gez.';
-    }
-    form.style.display = 'none';
-    msg.classList.add('ok');
-    msg.textContent = 'Erişim verildi.';
-    hosgeldinYaz();
-    adim = 'bitti';
-    setTimeout(kapat, 1900);
-  }
-
-  function ileri(){
-    if (adim === 'sifre') sifreDene();
-    else if (adim === 'ad') adKaydet();
-    else kapat();
-  }
-
-  function kapat(){
-    if (!gate || !gate.parentNode) return;
-    adim = 'bitti';
-    gate.classList.add('hide');
-    document.body.classList.remove('locked');
-    setTimeout(function () { if (gate.parentNode) gate.remove(); }, 600);
-  }
-
-  function hosgeldinYaz(){
-    var a = oku(AD_K), el = document.getElementById('hosgeldin');
-    if (!el || !a) return;
-    el.innerHTML = '<i class="fas fa-hand-sparkles"></i> ' + selam() + ', ' + a + '.';
-    el.classList.add('show');
-  }
-  hosgeldinYaz();
-
-  btn.addEventListener('click', ileri);
-  inp.addEventListener('keydown', function (e) { if (e.key === 'Enter') ileri(); });
-  alt.addEventListener('click', function () { sil(AD_K); location.reload(); });
-})();
-
-/* =======================================================
-   SAYFA (sekmeler, menü, tema, kopyalama)
-   ======================================================= */
-(function () {
-  var tabs    = Array.prototype.slice.call(document.querySelectorAll('.nav-link'));
-  var panels  = Array.prototype.slice.call(document.querySelectorAll('.panel-view'));
+  var tabs   = Array.prototype.slice.call(document.querySelectorAll('.nav-link'));
+  var panels = Array.prototype.slice.call(document.querySelectorAll('.panel-view'));
   var sidebar = document.getElementById('sidebar');
   var scrim   = document.getElementById('scrim');
   var burger  = document.getElementById('burger');
 
-  function ac(id, pushHash){
-    var bulundu = false;
+  /* --- Sekmeler --- */
+  function ac(id, pushHash) {
+    var found = false;
     panels.forEach(function (p) {
       var on = p.id === id;
       p.classList.toggle('active', on);
-      if (on) bulundu = true;
+      if (on) found = true;
     });
-    if (!bulundu) return;
+    if (!found) return;
     tabs.forEach(function (t) { t.setAttribute('aria-selected', t.dataset.tab === id ? 'true' : 'false'); });
     if (pushHash !== false) history.replaceState(null, '', '#' + id);
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    menuKapat();
+    closeMenu();
   }
 
   tabs.forEach(function (t, i) {
@@ -989,40 +622,46 @@ function sayimHazir(fn){ SAYIM.hazir ? fn(SAYIM) : SAYIM.kuyruk.push(fn); }
   var h = (location.hash || '').replace('#', '');
   if (h) ac(h, false);
 
-  function menuAc(){ sidebar.classList.add('open'); scrim.classList.add('show'); burger.setAttribute('aria-expanded','true'); }
-  function menuKapat(){ sidebar.classList.remove('open'); scrim.classList.remove('show'); burger.setAttribute('aria-expanded','false'); }
-  burger.addEventListener('click', function () { sidebar.classList.contains('open') ? menuKapat() : menuAc(); });
-  scrim.addEventListener('click', menuKapat);
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') menuKapat(); });
+  /* --- Mobil menü --- */
+  function openMenu()  { sidebar.classList.add('open');  scrim.classList.add('show');  burger.setAttribute('aria-expanded', 'true'); }
+  function closeMenu() { sidebar.classList.remove('open'); scrim.classList.remove('show'); burger.setAttribute('aria-expanded', 'false'); }
+  burger.addEventListener('click', function () { sidebar.classList.contains('open') ? closeMenu() : openMenu(); });
+  scrim.addEventListener('click', closeMenu);
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeMenu(); });
 
+  /* --- Tema --- */
   var root = document.documentElement;
-  var btnT = document.getElementById('tema');
-  function temaKur(m){
+  var btn  = document.getElementById('tema');
+  function setTheme(m) {
     root.setAttribute('data-theme', m);
-    btnT.innerHTML = '<i class="fas fa-' + (m === 'dark' ? 'sun' : 'moon') + '"></i>';
-    yaz('tema', m);
+    btn.innerHTML = '<i class="fas fa-' + (m === 'dark' ? 'sun' : 'moon') + '"></i>';
+    try { localStorage.setItem('tema', m); } catch (e) {}
   }
-  temaKur(oku('tema') || 'dark');
-  btnT.addEventListener('click', function () {
-    temaKur(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  var saved = 'dark';
+  try { saved = localStorage.getItem('tema') || 'dark'; } catch (e) {}
+  setTheme(saved);
+  btn.addEventListener('click', function () {
+    setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
   });
 
+  /* --- E-posta kopyala --- */
   var kop = document.getElementById('kopyala');
   if (kop) {
     kop.addEventListener('click', function () {
       var ok = document.getElementById('kopyalandi');
       var mail = 'kaanbersen@gmail.com';
-      var tamam = function () { ok.classList.add('show'); setTimeout(function () { ok.classList.remove('show'); }, 1800); };
-      if (navigator.clipboard) { navigator.clipboard.writeText(mail).then(tamam).catch(function () {}); }
+      var done = function () { ok.classList.add('show'); setTimeout(function () { ok.classList.remove('show'); }, 1800); };
+      if (navigator.clipboard) { navigator.clipboard.writeText(mail).then(done).catch(function(){}); }
       else {
         var ta = document.createElement('textarea');
         ta.value = mail; document.body.appendChild(ta); ta.select();
-        try { document.execCommand('copy'); tamam(); } catch (e) {}
+        try { document.execCommand('copy'); done(); } catch (e) {}
         document.body.removeChild(ta);
       }
     });
   }
 
+  /* --- Yıl --- */
   var y = new Date().getFullYear();
   document.getElementById('yil').textContent = y;
   document.getElementById('yil2').textContent = y;

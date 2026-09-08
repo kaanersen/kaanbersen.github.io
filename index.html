@@ -67,7 +67,7 @@ body{
   margin:0; min-height:100vh;
   font-family:var(--font);
   color:var(--text);
-  background:var(--bg,#09090b);
+  background:#09090b;
   -webkit-font-smoothing:antialiased;
   text-rendering:optimizeLegibility;
 }
@@ -148,6 +148,7 @@ a{color:inherit}
   border-radius:10px;border:1px solid var(--line);
   background:var(--panel-2);color:var(--text-2);
   cursor:pointer;transition:.2s;font-size:.85rem;
+  text-decoration:none;
 }
 .icon-btn:hover{color:var(--text);border-color:var(--line-2)}
 .side-foot small{font-size:.7rem;color:var(--muted);font-family:var(--mono)}
@@ -302,6 +303,66 @@ p.lead{font-size:1.03rem;line-height:1.8}
 
 .foot{text-align:center;color:var(--muted);font-size:.78rem;font-family:var(--mono);padding:10px 0 0}
 
+/* ============ ŞİFRE EKRANI (ŞAKA) ============ */
+body.locked{overflow:hidden}
+
+.gate{
+  position:fixed; inset:0; z-index:9999;
+  display:grid; place-items:center; padding:24px;
+  background:rgba(6,6,8,.72);
+  backdrop-filter:blur(22px) saturate(120%);
+  -webkit-backdrop-filter:blur(22px) saturate(120%);
+  transition:opacity .5s var(--ease), visibility .5s;
+}
+.gate.hide{opacity:0; visibility:hidden}
+
+.gate-card{
+  width:100%; max-width:420px; text-align:center;
+  padding:38px 30px;
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:var(--r);
+  box-shadow:var(--shadow);
+  animation:gateIn .55s var(--ease) both;
+}
+@keyframes gateIn{from{opacity:0;transform:translateY(20px) scale(.97)}to{opacity:1;transform:none}}
+.gate-card.shake{animation:shake .4s}
+@keyframes shake{
+  0%,100%{transform:translateX(0)}
+  20%{transform:translateX(-9px)} 40%{transform:translateX(8px)}
+  60%{transform:translateX(-5px)} 80%{transform:translateX(4px)}
+}
+
+.gate-ic{
+  width:58px; height:58px; margin:0 auto 20px;
+  display:grid; place-items:center;
+  border-radius:17px; font-size:1.35rem;
+  color:var(--accent); background:var(--glow);
+  border:1px solid color-mix(in srgb,var(--accent) 28%,transparent);
+  transition:.35s var(--ease);
+}
+.gate-ic.open{transform:rotate(-8deg) scale(1.08)}
+
+.gate-title{font-size:1.35rem;font-weight:700;letter-spacing:-.5px;margin:0 0 10px}
+.gate-sub{color:var(--muted);font-size:.92rem;line-height:1.65;margin:0 0 24px}
+
+.gate-form{display:flex;gap:9px}
+.gate-form input{
+  flex:1; min-width:0;
+  padding:12px 15px; border-radius:10px;
+  background:var(--panel-2); border:1px solid var(--line);
+  color:var(--text); font-family:inherit; font-size:.92rem;
+  outline:none; transition:border-color .2s;
+}
+.gate-form input::placeholder{color:var(--muted)}
+.gate-form input:focus{border-color:var(--accent)}
+
+.gate-msg{
+  margin-top:16px; font-family:var(--mono);
+  font-size:.75rem; color:var(--muted); min-height:18px;
+}
+.gate-msg.ok{color:#22c55e}
+
 /* ============ RESPONSIVE ============ */
 @media (max-width:980px){
   .topbar{display:flex}
@@ -309,6 +370,7 @@ p.lead{font-size:1.03rem;line-height:1.8}
   .sidebar.open{transform:translateX(0)}
   .main{margin-left:0;padding:88px 18px 60px}
   .card{padding:24px 20px;border-radius:14px}
+  .gate-card{padding:30px 22px}
 }
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
@@ -316,6 +378,25 @@ p.lead{font-size:1.03rem;line-height:1.8}
 </style>
 </head>
 <body>
+
+<!-- ŞİFRE EKRANI (ŞAKA) -->
+<div class="gate" id="gate" role="dialog" aria-modal="true" aria-label="Giriş">
+  <div class="gate-card" id="gateCard">
+    <div class="gate-ic" id="gateIc"><i class="fas fa-lock"></i></div>
+    <h2 class="gate-title" id="gateTitle">Bu sayfa kilitli</h2>
+    <p class="gate-sub" id="gateSub">
+      Bayadır yenilemiyorum burayı. Gezmek istiyorsan şifreyi gir.
+    </p>
+
+    <div class="gate-form" id="gateForm">
+      <input type="password" id="gateInput" placeholder="Şifre"
+             autocomplete="off" spellcheck="false" aria-label="Şifre">
+      <button class="btn btn-solid" id="gateBtn">Gir</button>
+    </div>
+
+    <div class="gate-msg" id="gateMsg">İpucu: ipucu yok.</div>
+  </div>
+</div>
 
 <a class="skip" href="#icerik">İçeriğe geç</a>
 
@@ -582,14 +663,83 @@ p.lead{font-size:1.03rem;line-height:1.8}
 </main>
 
 <script>
+/* ---------- ŞİFRE EKRANI (ŞAKA) ---------- */
 (function () {
-  var tabs   = Array.prototype.slice.call(document.querySelectorAll('.nav-link'));
-  var panels = Array.prototype.slice.call(document.querySelectorAll('.panel-view'));
+  var gate  = document.getElementById('gate');
+  var card  = document.getElementById('gateCard');
+  var ic    = document.getElementById('gateIc');
+  var ttl   = document.getElementById('gateTitle');
+  var sub   = document.getElementById('gateSub');
+  var form  = document.getElementById('gateForm');
+  var inp   = document.getElementById('gateInput');
+  var btn   = document.getElementById('gateBtn');
+  var msg   = document.getElementById('gateMsg');
+  var busy  = false;
+
+  document.body.classList.add('locked');
+  setTimeout(function () { inp.focus(); }, 600);
+
+  var bos = [
+    'Boş geçilmez. Bir şeyler yaz.',
+    'Hadi ama, bir şey yaz.',
+    'En azından "1234" dene.'
+  ];
+
+  function dene() {
+    if (busy) return;
+
+    if (!inp.value.trim()) {
+      card.classList.remove('shake');
+      void card.offsetWidth;
+      card.classList.add('shake');
+      msg.textContent = bos[Math.floor(Math.random() * bos.length)];
+      inp.focus();
+      return;
+    }
+
+    busy = true;
+    btn.disabled = true;
+    inp.disabled = true;
+
+    var n = 0;
+    msg.classList.remove('ok');
+    var t = setInterval(function () {
+      n = (n + 1) % 4;
+      msg.textContent = 'Kontrol ediliyor' + '.'.repeat(n);
+    }, 220);
+
+    setTimeout(function () {
+      clearInterval(t);
+      ic.classList.add('open');
+      ic.innerHTML = '<i class="fas fa-lock-open"></i>';
+      ttl.textContent = 'Şifre falan yok :)';
+      sub.textContent = 'Şakasına yazdım. Ne yazsan girecektin. Buyur, rahat rahat gez.';
+      form.style.display = 'none';
+      msg.classList.add('ok');
+      msg.textContent = 'Erişim verildi.';
+    }, 1100);
+
+    setTimeout(ac, 3000);
+  }
+
+  function ac() {
+    gate.classList.add('hide');
+    document.body.classList.remove('locked');
+    setTimeout(function () { gate.remove(); }, 600);
+  }
+
+  btn.addEventListener('click', dene);
+  inp.addEventListener('keydown', function (e) { if (e.key === 'Enter') dene(); });
+})();
+
+/* ---------- SAYFA ---------- */
+(function () {
+  var tabs    = Array.prototype.slice.call(document.querySelectorAll('.nav-link'));
+  var panels  = Array.prototype.slice.call(document.querySelectorAll('.panel-view'));
   var sidebar = document.getElementById('sidebar');
   var scrim   = document.getElementById('scrim');
   var burger  = document.getElementById('burger');
 
-  /* --- Sekmeler --- */
   function ac(id, pushHash) {
     var found = false;
     panels.forEach(function (p) {
@@ -622,36 +772,33 @@ p.lead{font-size:1.03rem;line-height:1.8}
   var h = (location.hash || '').replace('#', '');
   if (h) ac(h, false);
 
-  /* --- Mobil menü --- */
-  function openMenu()  { sidebar.classList.add('open');  scrim.classList.add('show');  burger.setAttribute('aria-expanded', 'true'); }
+  function openMenu()  { sidebar.classList.add('open');    scrim.classList.add('show');    burger.setAttribute('aria-expanded', 'true'); }
   function closeMenu() { sidebar.classList.remove('open'); scrim.classList.remove('show'); burger.setAttribute('aria-expanded', 'false'); }
   burger.addEventListener('click', function () { sidebar.classList.contains('open') ? closeMenu() : openMenu(); });
   scrim.addEventListener('click', closeMenu);
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeMenu(); });
 
-  /* --- Tema --- */
   var root = document.documentElement;
-  var btn  = document.getElementById('tema');
+  var btnT = document.getElementById('tema');
   function setTheme(m) {
     root.setAttribute('data-theme', m);
-    btn.innerHTML = '<i class="fas fa-' + (m === 'dark' ? 'sun' : 'moon') + '"></i>';
+    btnT.innerHTML = '<i class="fas fa-' + (m === 'dark' ? 'sun' : 'moon') + '"></i>';
     try { localStorage.setItem('tema', m); } catch (e) {}
   }
   var saved = 'dark';
   try { saved = localStorage.getItem('tema') || 'dark'; } catch (e) {}
   setTheme(saved);
-  btn.addEventListener('click', function () {
+  btnT.addEventListener('click', function () {
     setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
   });
 
-  /* --- E-posta kopyala --- */
   var kop = document.getElementById('kopyala');
   if (kop) {
     kop.addEventListener('click', function () {
       var ok = document.getElementById('kopyalandi');
       var mail = 'kaanbersen@gmail.com';
       var done = function () { ok.classList.add('show'); setTimeout(function () { ok.classList.remove('show'); }, 1800); };
-      if (navigator.clipboard) { navigator.clipboard.writeText(mail).then(done).catch(function(){}); }
+      if (navigator.clipboard) { navigator.clipboard.writeText(mail).then(done).catch(function () {}); }
       else {
         var ta = document.createElement('textarea');
         ta.value = mail; document.body.appendChild(ta); ta.select();
@@ -661,7 +808,6 @@ p.lead{font-size:1.03rem;line-height:1.8}
     });
   }
 
-  /* --- Yıl --- */
   var y = new Date().getFullYear();
   document.getElementById('yil').textContent = y;
   document.getElementById('yil2').textContent = y;
